@@ -1,0 +1,90 @@
+@import "tailwindcss";
+@font-face {
+  font-family: "Mrs Saint Delafield";
+  src: url("/mrs-saint-delafield_5.2.7_latin-400-normal.woff2") format("woff2");
+}
+/* h1 {
+  font-family: "Mrs Saint Delafield";
+  font-weight: 400;
+
+  font-size: 120px;
+} */
+.mrs-saint-delafield-regular {
+  font-family: "Mrs Saint Delafield", cursive;
+  font-size: 100px;
+  font-weight: 400;
+  font-style: normal;
+}
+/* Add to your CSS file or Tailwind config */
+.nav-center {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.navlink {
+  transition: all 0.3s ease-in-out;
+  position: relative;
+}
+
+.navlink:hover {
+  transform: translateY(-1px);
+}
+
+.navlink::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: currentColor;
+  transition: width 0.3s ease-in-out;
+}
+
+.navlink:hover::after {
+  width: 100%;
+}
+
+/* Smooth transitions for mobile menu */
+.links-container {
+  transition:
+    max-height 0.3s ease-in-out,
+    opacity 0.3s ease-in-out;
+}
+.active {
+  color: #b07d52;
+}
+/* Add to your CSS file */
+/* .navlink.active {
+  color: #b07d52 !important;
+  font-weight: 600;
+}
+
+/* Ensure active color persists on scroll */
+.nav-center.scrolled .navlink.active {
+  color: #b07d52 !important;
+}
+.links {
+  order: unset;
+  width: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 3rem;
+  padding: 1rem 7rem;
+  margin-top: 0rem;
+}
+.link {
+  color: white;
+  background-color: black;
+  padding: 0.7rem 1.7rem;
+  border-radius: 0.7rem;
+}
+
+/* @layer utilities { */
+@media (min-width: 770px) and (max-width: 880px) {
+  .text-responsive {
+    font-size: 0.65em; /* same as text-sm */
+  }
+}
+/* } */
