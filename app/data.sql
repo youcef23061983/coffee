@@ -43,20 +43,20 @@ CREATE TABLE coffee_products (
 );
 
 -- Equipment Products Table
-CREATE TABLE equipment_products (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    brand_id UUID REFERENCES brands(id) ON DELETE CASCADE,
-    category product_category NOT NULL,
-    name VARCHAR(100) NOT NULL,
-    description TEXT,
-    specifications JSONB, -- { "material": "stainless steel", "capacity": "1.2L" }
-    price DECIMAL(10,2) NOT NULL,
-    in_stock BOOLEAN DEFAULT TRUE,
-    recommended_for JSONB, -- Array of brew methods: ['pourOver', 'espresso']
-    skill_level VARCHAR(20) CHECK (skill_level IN ('beginner', 'intermediate', 'expert')),
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ DEFAULT NOW()
-);
+    CREATE TABLE equipment_products (
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+        brand_id UUID REFERENCES brands(id) ON DELETE CASCADE,
+        category product_category NOT NULL,
+        name VARCHAR(100) NOT NULL,
+        description TEXT,
+        specifications JSONB, -- { "material": "stainless steel", "capacity": "1.2L" }
+        price DECIMAL(10,2) NOT NULL,
+        in_stock BOOLEAN DEFAULT TRUE,
+        recommended_for JSONB, -- Array of brew methods: ['pourOver', 'espresso']
+        skill_level VARCHAR(20) CHECK (skill_level IN ('beginner', 'intermediate', 'expert')),
+        created_at TIMESTAMPTZ DEFAULT NOW(),
+        updated_at TIMESTAMPTZ DEFAULT NOW()
+    );
 
 -- Quiz Recommendation Rules Table
 CREATE TABLE quiz_recommendation_rules (
@@ -301,3 +301,107 @@ INSERT INTO coffee_products (brand_id, name, description, roast_level, flavor_pr
 --   FOR INSERT WITH CHECK (true);
 -- CREATE POLICY "Only admins can read messages" ON contact_messages 
 --   FOR SELECT USING (auth.role() = 'authenticated');
+
+
+
+
+
+-- ------TESTIMONIAL:
+-- Create testimonials table
+CREATE TABLE testimonials (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  text TEXT NOT NULL,
+  author VARCHAR(100) NOT NULL,
+  role VARCHAR(100) NOT NULL,
+  rating INTEGER CHECK (rating >= 1 AND rating <= 5) NOT NULL,
+  featured BOOLEAN DEFAULT false,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Insert sample data
+INSERT INTO testimonials (text, author, role, rating, featured) VALUES
+(
+  'I finally found coffee I actually look forward to every morning! The personalized quiz matched me with three amazing roasters I''d never have discovered otherwise.',
+  'Sarah K.',
+  'Coffee Enthusiast',
+  5,
+  true
+),
+(
+  'As a barista, I''m picky about my beans. BrewTopia introduced me to incredible small-batch roasters that supply my cafe now. Game changer!',
+  'Marcus T.',
+  'Professional Barista',
+  5,
+  true
+),
+(
+  'The flexibility to skip or modify my subscription makes this perfect for my unpredictable schedule. And the coffee is exceptional every time.',
+  'Jessica L.',
+  'Busy Professional',
+  5,
+  true
+),
+(
+  'The quality of coffee is consistently outstanding. Every shipment feels like a special treat!',
+  'David M.',
+  'Coffee Lover',
+  5,
+  false
+),
+(
+  'Best coffee subscription service I''ve tried. The personalized recommendations are spot on!',
+  'Emily R.',
+  'Software Engineer',
+  5,
+  false
+);
+
+-- Add 5 more testimonials
+INSERT INTO testimonials (text, author, role, rating, featured) VALUES
+(
+  'The customer service is incredible! They helped me find the perfect roast for my espresso machine and even gave me brewing tips.',
+  'Alex P.',
+  'Home Barista',
+  5,
+  true
+),
+(
+  'I''ve been a subscriber for 6 months and every delivery has been exceptional. The variety keeps my morning routine exciting!',
+  'Michael B.',
+  'Marketing Director',
+  5,
+  false
+),
+(
+  'As someone new to specialty coffee, the guidance and education provided made me feel confident in my choices. Amazing experience!',
+  'Olivia S.',
+  'Coffee Newcomer',
+  5,
+  true
+),
+(
+  'The sustainable sourcing and fair trade practices make me feel good about my purchase. Great coffee with a conscience!',
+  'Daniel R.',
+  'Environmental Advocate',
+  5,
+  false
+),
+(
+  'Fast shipping and perfectly fresh beans every time. The packaging is beautiful and keeps the coffee at peak freshness.',
+  'Sophia L.',
+  'E-commerce Manager',
+  5,
+  false
+);
+
+-- Create updated_at trigger
+CREATE OR REPLACE FUNCTION update_updated_at_column()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.updated_at = NOW();
+    RETURN NEW;
+END;
+$$ language 'plpgsql';
+
+CREATE TRIGGER update_testimonials_updated_at BEFORE UPDATE ON testimonials FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();

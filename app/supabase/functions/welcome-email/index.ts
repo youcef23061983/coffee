@@ -1,21 +1,21 @@
 // // supabase/functions/send-welcome-email/index.js
-// import { serve } from "https://deno.land/std@0.177.0/http/server.ts";
-// import { Resend } from "npm:resend@2.0.0";
+// import { serve } from "https://deno.land/std@0.177.0/http/server.ts"
+// import { Resend } from "npm:resend@2.0.0"
 
-// const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
+// const resend = new Resend(Deno.env.get('RESEND_API_KEY'))
 
 // serve(async (req) => {
 //   try {
-//     const { userEmail, userName } = await req.json();
+//     const { userEmail, userName } = await req.json()
 
 //     if (!userEmail) {
-//       throw new Error("User email is required");
+//       throw new Error('User email is required')
 //     }
 
 //     const { data, error } = await resend.emails.send({
-//       from: "Welcome <welcome@yourdomain.com>",
+//       from: 'Welcome <welcome@yourdomain.com>',
 //       to: [userEmail],
-//       subject: `Welcome to Our App, ${userName || "there"}!`,
+//       subject: `Welcome to Our App, ${userName || 'there'}!`,
 //       html: `
 //         <!DOCTYPE html>
 //         <html>
@@ -35,7 +35,7 @@
 //               <h1>🎉 Welcome Aboard!</h1>
 //             </div>
 //             <div class="content">
-//               <h2>Hello ${userName || "there"},</h2>
+//               <h2>Hello ${userName || 'there'},</h2>
 //               <p>We're thrilled to have you join our community! Your account has been successfully created.</p>
 
 //               <p>Here's what you can do next:</p>
@@ -60,33 +60,34 @@
 //           </div>
 //         </body>
 //         </html>
-//       `,
-//     });
+//       `
+//     })
 
 //     if (error) {
-//       throw error;
+//       throw error
 //     }
 
 //     return new Response(
 //       JSON.stringify({
 //         success: true,
 //         data,
-//         message: "Welcome email sent successfully",
+//         message: 'Welcome email sent successfully'
 //       }),
 //       {
-//         headers: { "Content-Type": "application/json" },
+//         headers: { 'Content-Type': 'application/json' }
 //       }
-//     );
+//     )
+
 //   } catch (error) {
 //     return new Response(
 //       JSON.stringify({
 //         success: false,
-//         error: error.message,
+//         error: error.message
 //       }),
 //       {
 //         status: 500,
-//         headers: { "Content-Type": "application/json" },
+//         headers: { 'Content-Type': 'application/json' }
 //       }
-//     );
+//     )
 //   }
-// });
+// })

@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
 import { Navigate, useNavigate } from "react-router";
+import TestimonialsSection from "~/components/TestimonialsSection";
 interface WelcomeProps {
   data: any[]; // or use a more specific type
   brands?: any[]; // make it optional if needed
@@ -15,7 +16,7 @@ export function Welcome({ data, brands }: WelcomeProps) {
 
   async function goToBrandProducts(brandId: string) {
     // Navigate to products page with the specific brand data
-    navigate("/products", {
+    navigate("/brands", {
       state: {
         brandId,
       },
@@ -66,7 +67,7 @@ export function Welcome({ data, brands }: WelcomeProps) {
             </button>
             <button
               className="border-2 border-white text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-white hover:text-black transition-all cursor-pointer"
-              onClick={() => navigate("/roasters")}
+              onClick={() => navigate("/products")}
             >
               Browse All Roasters
             </button>
@@ -229,7 +230,10 @@ export function Welcome({ data, brands }: WelcomeProps) {
             ))}
           </div>
           <div className="text-center mt-12">
-            <button className="border-2 border-[#8B4513] text-[#8B4513] hover:bg-[#8B4513] hover:text-white px-8 py-3 rounded-full font-semibold transition-all cursor-pointer">
+            <button
+              className="border-2 border-[#8B4513] text-[#8B4513] hover:bg-[#8B4513] hover:text-white px-8 py-3 rounded-full font-semibold transition-all cursor-pointer"
+              onClick={() => navigate("/products")}
+            >
               View All 50+ Roasters
             </button>
           </div>
@@ -308,51 +312,7 @@ export function Welcome({ data, brands }: WelcomeProps) {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                text: "I finally found coffee I actually look forward to every morning! The personalized quiz matched me with three amazing roasters I'd never have discovered otherwise.",
-                author: "Sarah K.",
-                role: "Coffee Enthusiast",
-                rating: 5,
-              },
-              {
-                text: "As a barista, I'm picky about my beans. BrewTopia introduced me to incredible small-batch roasters that supply my cafe now. Game changer!",
-                author: "Marcus T.",
-                role: "Professional Barista",
-                rating: 5,
-              },
-              {
-                text: "The flexibility to skip or modify my subscription makes this perfect for my unpredictable schedule. And the coffee is exceptional every time.",
-                author: "Jessica L.",
-                role: "Busy Professional",
-                rating: 5,
-              },
-            ].map((testimonial, index) => (
-              <motion.div
-                key={testimonial.author}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.2 }}
-                className="bg-white rounded-2xl p-6 shadow-lg"
-              >
-                <div className="flex text-yellow-400 mb-4">
-                  {"★".repeat(testimonial.rating)}
-                </div>
-                <p className="text-gray-700 mb-6 italic">
-                  "{testimonial.text}"
-                </p>
-                <div>
-                  <div className="font-semibold text-gray-900">
-                    {testimonial.author}
-                  </div>
-                  <div className="text-sm text-gray-600">
-                    {testimonial.role}
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+          <TestimonialsSection />
         </div>
       </section>
       {/* <section className="py-20 bg-white"> */}
@@ -494,10 +454,16 @@ export function Welcome({ data, brands }: WelcomeProps) {
             transition={{ delay: 0.4 }}
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
-            <button className="bg-[#8B4513] hover:bg-[#6B3410] text-white px-8 py-4 rounded-full text-lg font-semibold transition-all transform hover:scale-105 cursor-pointer">
+            <button
+              className="bg-[#8B4513] hover:bg-[#6B3410] text-white px-8 py-4 rounded-full text-lg font-semibold transition-all transform hover:scale-105 cursor-pointer"
+              onClick={() => navigate("/quiz")}
+            >
               Find Your Perfect Match →
             </button>
-            <button className="border-2 border-[#8B4513] text-[#8B4513] hover:bg-[#8B4513] hover:text-white px-8 py-4 rounded-full text-lg font-semibold transition-all cursor-pointer">
+            <button
+              className="border-2 border-[#8B4513] text-[#8B4513] hover:bg-[#8B4513] hover:text-white px-8 py-4 rounded-full text-lg font-semibold transition-all cursor-pointer"
+              onClick={() => navigate("/products")}
+            >
               Browse All Coffees
             </button>
           </motion.div>
