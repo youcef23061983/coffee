@@ -80,5 +80,11 @@ export default function ProductDetailPage({
   }
 
   // Now we can safely spread the data
-  return <ProductDetail product={product} type={type} error={error} />;
+  return (
+    <ProductDetail
+      product={product}
+      type={type as "coffee" | "equipment"}
+      error={error}
+    />
+  );
 }
