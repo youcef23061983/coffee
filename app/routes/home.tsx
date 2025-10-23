@@ -44,7 +44,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
   const { data } = loaderData;
 
   return (
-    <ClientOnly>
+    <ClientOnly fallback={<p>Loading brands...</p>}>
       <Welcome data={data || []} />
     </ClientOnly>
   );

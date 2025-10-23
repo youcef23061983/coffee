@@ -6,7 +6,7 @@ import Navbar from "./navbar";
 export default function RootLayout() {
   return (
     <div>
-      <Navbar />
+      {/* <Navbar /> */}
       <main>
         <Outlet /> {/* 👈 child routes render here */}
       </main>

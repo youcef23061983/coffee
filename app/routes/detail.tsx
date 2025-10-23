@@ -2,6 +2,7 @@
 import { supabase } from "~/supabase_client";
 import type { Route } from "./+types/detail";
 import ProductDetail from "~/components/ProductDetail";
+import { ClientOnly } from "~/components/ClientOnly";
 
 export async function loader({ params }: Route.LoaderArgs) {
   const { id } = params;
@@ -81,10 +82,12 @@ export default function ProductDetailPage({
 
   // Now we can safely spread the data
   return (
-    <ProductDetail
-      product={product}
-      type={type as "coffee" | "equipment"}
-      error={error}
-    />
+    <ClientOnly fallback={<p>Loading product...</p>}>
+      <ProductDetail
+        product={product}
+        type={type as "coffee" | "equipment"}
+        error={error}
+      />
+    </ClientOnly>
   );
 }
