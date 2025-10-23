@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
-import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
-import { Navigate, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import TestimonialsSection from "~/components/TestimonialsSection";
 interface WelcomeProps {
   data: any[]; // or use a more specific type
