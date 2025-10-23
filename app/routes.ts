@@ -15,6 +15,7 @@ export default [
     route("results", "routes/results.tsx"),
     route("testimonials", "routes/TestimonialsGrid.tsx"),
     route("about", "routes/about.tsx"),
+    route("contact", "routes/contact.tsx"),
     route("addTestimonial", "routes/AddTestimonial.tsx"),
   ]),
 ] satisfies RouteConfig;
