@@ -15,7 +15,7 @@ export function Welcome({ data, brands }: WelcomeProps) {
 
   async function goToBrandProducts(brandId: string) {
     // Navigate to products page with the specific brand data
-    navigate("/brands", {
+    navigate(`/${brandId}`, {
       state: {
         brandId,
       },

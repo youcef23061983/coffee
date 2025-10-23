@@ -66,7 +66,7 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-const About = () => {
+const Quiz = () => {
   return (
     <>
       <ClientOnly fallback={<p>Loading client...</p>}>
@@ -76,4 +76,4 @@ const About = () => {
   );
 };
 
-export default About;
+export default Quiz;
