@@ -1,8 +1,143 @@
-// app/routes/detail.tsx
 import { supabase } from "~/supabase_client";
 import type { Route } from "./+types/detail";
 import ProductDetail from "~/components/ProductDetail";
 import { ClientOnly } from "~/components/ClientOnly";
+export function meta({ loaderData }: Route.MetaArgs) {
+  // Handle loading/error states
+  if (!loaderData || loaderData.error || !loaderData.product) {
+    return [
+      { title: "Product Not Found | BrewTopia" },
+      {
+        name: "description",
+        content:
+          "This product could not be found. Browse our collection of premium coffees and brewing equipment.",
+      },
+    ];
+  }
+
+  const { product, type } = loaderData;
+  const brandName = product.brands?.name || "BrewTopia";
+
+  // Dynamic meta based on product type
+  if (type === "coffee") {
+    return [
+      { title: `${product.name} | ${brandName} Coffee Beans | BrewTopia` },
+      {
+        name: "description",
+        content: `Discover ${product.name} ${product.roast_level} roast coffee from ${brandName}. ${product.origin_country} origin, ${product.process_method} process. ${product.description?.substring(0, 150)}...`,
+      },
+      { name: "author", content: brandName },
+      {
+        name: "keywords",
+        content: `${product.name}, ${brandName}, ${product.roast_level} roast, ${product.origin_country} coffee, ${product.process_method} process, specialty coffee beans`,
+      },
+
+      // Open Graph
+      {
+        property: "og:title",
+        content: `${product.name} | ${brandName} Coffee ☕`,
+      },
+      {
+        property: "og:description",
+        content: `${product.roast_level} roast from ${product.origin_country}. ${product.description?.substring(0, 100)}...`,
+      },
+      { property: "og:type", content: "product" },
+      {
+        property: "og:url",
+        content: `https://coffee-khaki-seven.vercel.app/products/${product.id}`,
+      },
+      {
+        property: "og:image",
+        content:
+          product.image_url ||
+          "https://coffee-khaki-seven.vercel.app/products.jpg",
+      },
+      { property: "og:site_name", content: "BrewTopia" },
+      { property: "product:price:amount", content: product.price },
+      { property: "product:price:currency", content: "USD" },
+
+      // Twitter Card
+      { name: "twitter:card", content: "summary_large_image" },
+      {
+        name: "twitter:title",
+        content: `${product.name} | ${brandName} Coffee`,
+      },
+      {
+        name: "twitter:description",
+        content: `${product.roast_level} roast from ${product.origin_country}. Discover this exceptional coffee! ☕`,
+      },
+      {
+        name: "twitter:image",
+        content:
+          product.image_url ||
+          "https://coffee-khaki-seven.vercel.app/products.jpg",
+      },
+
+      // Essential Meta
+      { name: "robots", content: "index, follow" },
+    ];
+  } else {
+    // Equipment product meta
+    return [
+      {
+        title: `${product.name} | ${brandName} ${product.category} | BrewTopia`,
+      },
+      {
+        name: "description",
+        content: `Shop ${product.name} ${product.category} from ${brandName}. ${product.skill_level} level equipment. ${product.description?.substring(0, 150)}...`,
+      },
+      { name: "author", content: brandName },
+      {
+        name: "keywords",
+        content: `${product.name}, ${brandName}, ${product.category}, ${product.skill_level} equipment, coffee gear, brewing tools`,
+      },
+
+      // Open Graph
+      {
+        property: "og:title",
+        content: `${product.name} | ${brandName} ${product.category} ⚙️`,
+      },
+      {
+        property: "og:description",
+        content: `${product.skill_level} level ${product.category}. ${product.description?.substring(0, 100)}...`,
+      },
+      { property: "og:type", content: "product" },
+      {
+        property: "og:url",
+        content: `https://coffee-khaki-seven.vercel.app/products/${product.id}`,
+      },
+      {
+        property: "og:image",
+        content:
+          product.image_url ||
+          "https://coffee-khaki-seven.vercel.app/products.jpg",
+      },
+      { property: "og:site_name", content: "BrewTopia" },
+      { property: "product:price:amount", content: product.price },
+      { property: "product:price:currency", content: "USD" },
+
+      // Twitter Card
+      { name: "twitter:card", content: "summary_large_image" },
+      {
+        name: "twitter:title",
+        content: `${product.name} | ${brandName} Equipment`,
+      },
+      {
+        name: "twitter:description",
+        content: `${product.skill_level} level ${product.category}. Perfect for your brewing setup! ⚙️`,
+      },
+      {
+        name: "twitter:image",
+        content:
+          product.image_url ||
+          "https://coffee-khaki-seven.vercel.app/products.jpg",
+      },
+
+      // Essential Meta
+      { name: "robots", content: "index, follow" },
+    ];
+  }
+}
 
 export async function loader({ params }: Route.LoaderArgs) {
   const { id } = params;
