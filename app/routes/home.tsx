@@ -1,11 +1,12 @@
 import type { Route } from "./+types/home";
-import { Welcome } from "../welcome/welcome";
+import { Welcome } from "../components/welcome";
 
 // Define the props type for Welcome
 type WelcomeProps = {
   data: any[]; // Remove undefined
 };
 import { supabase } from "~/supabase_client";
+import { ClientOnly } from "~/components/ClientOnly";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -41,7 +42,10 @@ export async function loader() {
 // export default function Home() {
 export default function Home({ loaderData }: Route.ComponentProps) {
   const { data } = loaderData;
-  return <h1>hi</h1>;
 
-  // return <Welcome data={data || []} />;
+  return (
+    <ClientOnly>
+      <Welcome data={data || []} />
+    </ClientOnly>
+  );
 }
