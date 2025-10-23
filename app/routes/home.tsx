@@ -41,6 +41,7 @@ export async function loader() {
 // export default function Home() {
 export default function Home({ loaderData }: Route.ComponentProps) {
   const { data } = loaderData;
+  return <h1>hi</h1>;
 
-  return <Welcome data={data || []} />;
+  // return <Welcome data={data || []} />;
 }
