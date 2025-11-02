@@ -11,6 +11,7 @@ import type { Route } from "./+types/root";
 import "./app.css";
 import { supabase } from "./supabase_client";
 import { SessionContextProvider } from "@supabase/auth-helpers-react";
+import { AppProvider } from "./hooks/appProvider";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -45,9 +46,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   return (
-    <SessionContextProvider supabaseClient={supabase}>
+    // <SessionContextProvider supabaseClient={supabase}>
+    <AppProvider>
       <Outlet />
-    </SessionContextProvider>
+    </AppProvider>
+    // </SessionContextProvider>
   );
 }
 
