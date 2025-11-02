@@ -298,7 +298,7 @@ const Navbar = () => {
           </div>
 
           {/* CENTER - Links (desktop only) */}
-          <div className="hidden md:flex flex-1 justify-center items-center space-x-6">
+          <div className="hidden md:flex flex-1 justify-center items-center space-x-3">
             {links.map((link) => (
               <Link
                 key={link.href}
@@ -316,17 +316,18 @@ const Navbar = () => {
           </div>
 
           {/* RIGHT - User Icon + Auth */}
+
           <div className="hidden md:flex items-center space-x-3">
             <FaUserCircle className="text-2xl text-gray-700" />
 
             {user ? (
               <>
-                <span className="text-gray-800 text-sm font-medium">
+                <span className="text-gray-800 text-sm font-medium truncate max-w-[70px] min-[870px]:max-w-none min-[870px]:truncate-0">
                   {user.email}
                 </span>
                 <button
                   onClick={handleSignOut}
-                  className="px-3 py-1 bg-black text-white text-sm rounded-lg hover:bg-gray-800 transition"
+                  className="px-3 py-1 bg-black text-white text-sm rounded-lg hover:bg-gray-800 transition shrink-0"
                 >
                   Sign Out
                 </button>
@@ -334,7 +335,7 @@ const Navbar = () => {
             ) : (
               <Link
                 to="/auth/login"
-                className="px-3 py-1 bg-[#b07d52] text-white text-sm rounded-lg hover:bg-[#946743] transition"
+                className="px-3 py-1 bg-[#b07d52] text-white text-sm rounded-lg hover:bg-[#946743] transition shrink-0"
               >
                 Sign In
               </Link>

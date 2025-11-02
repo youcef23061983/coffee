@@ -82,9 +82,14 @@
 }
 
 /* @layer utilities { */
-@media (min-width: 770px) and (max-width: 880px) {
+@media (min-width: 770px) and (max-width: 1200px) {
   .text-responsive {
-    font-size: 0.65em; /* same as text-sm */
+    font-size: 0.65rem; /* same as text-sm */
+  }
+}
+@media (min-width: 770px) and (max-width: 1200px) {
+  .text-email {
+    font-size: 0.65rem; /* same as text-sm */
   }
 }
 /* } */
