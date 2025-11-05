@@ -56,7 +56,7 @@
 //   );
 // };
 // hooks/useAuth.ts
-import { useState, useEffect, createContext, useContext } from "react";
+import { useState, useEffect, createContext, use } from "react";
 import type { ReactNode } from "react";
 import type { Session, User } from "@supabase/supabase-js";
 import { supabase } from "~/supabase_client";
@@ -74,7 +74,7 @@ export const AuthContext = createContext<AuthContextType>({
 });
 
 export const useAuth = () => {
-  const context = useContext(AuthContext);
+  const context = use(AuthContext);
   if (!context) {
     throw new Error("useAuth must be used within an AuthProvider");
   }

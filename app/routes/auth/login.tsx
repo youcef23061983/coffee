@@ -322,28 +322,33 @@
 // }
 
 // app/routes/auth/login.tsx
-import { useState } from "react";
-import { Link } from "react-router";
+import { useActionState } from "react";
+import { Link, useNavigate } from "react-router";
 import { supabase } from "~/supabase_client";
 
+interface FormState {
+  email: string;
+  password: string;
+  error: string | null;
+  success: boolean;
+}
+
 export default function Login() {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setError(null);
-
-    const formData = new FormData(e.currentTarget);
+  const navigate = useNavigate();
+  const handleSubmit = async (
+    prevState: FormState,
+    formData: FormData
+  ): Promise<FormState> => {
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
 
     // Basic validation
     if (!email || !password) {
-      setError("Email and password are required");
-      setIsSubmitting(false);
-      return;
+      return {
+        ...prevState,
+        error: "Email and password are required",
+        success: false,
+      };
     }
 
     try {
@@ -368,20 +373,40 @@ export default function Login() {
 
         const userMessage =
           errorMap[authError.message] || "An error occurred during sign in";
-        throw new Error(userMessage);
+
+        return {
+          ...prevState,
+          error: userMessage,
+          success: false,
+        };
       }
 
       console.log("✅ Login successful, user:", data.user?.email);
+      navigate("/");
 
-      // Client-side redirect - this ensures the auth state is updated
-      window.location.href = "/";
+      // Return success state
+      return {
+        email,
+        password: "",
+        error: null,
+        success: true,
+      };
     } catch (err: any) {
       console.error("❌ Login error:", err.message);
-      setError(err.message);
-    } finally {
-      setIsSubmitting(false);
+      return {
+        ...prevState,
+        error: err.message || "An unexpected error occurred",
+        success: false,
+      };
     }
   };
+
+  const [state, formAction, isPending] = useActionState(handleSubmit, {
+    email: "",
+    password: "",
+    error: null,
+    success: false,
+  });
 
   return (
     <>
@@ -411,15 +436,16 @@ export default function Login() {
             <p>Sign in to your coffee account</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="signup-form">
+          <form action={formAction} className="signup-form">
             <div className="form-group">
               <input
                 type="email"
                 name="email"
                 placeholder="Email Address"
                 required
-                disabled={isSubmitting}
+                disabled={isPending}
                 className="form-input"
+                defaultValue={state.email}
               />
             </div>
 
@@ -429,21 +455,24 @@ export default function Login() {
                 name="password"
                 placeholder="Password"
                 required
-                disabled={isSubmitting}
+                disabled={isPending}
                 className="form-input"
               />
             </div>
 
             <button
               type="submit"
-              disabled={isSubmitting}
+              disabled={isPending}
               className="submit-button"
             >
-              {isSubmitting ? "Signing In..." : "Sign In"}
+              {isPending ? "Signing In..." : "Sign In"}
             </button>
           </form>
 
-          {error && <div className="error-message">❌ {error}</div>}
+          {state.error && <div className="error-message">❌ {state.error}</div>}
+          {state.success && (
+            <div className="success-message">✅ {state.email} is logged in</div>
+          )}
 
           <div className="signup-footer">
             <p>
@@ -459,7 +488,6 @@ export default function Login() {
             </p>
           </div>
         </div>
-
         <style>{`
         .signup-container {
           min-height: 100vh;
@@ -591,6 +619,15 @@ export default function Login() {
           cursor: not-allowed;
           transform: none;
         }
+          .success-message {
+            background-color: #efe;
+            border: 1px solid #cfc;
+            color: #363;
+            padding: 0.75rem;
+            border-radius: 6px;
+            margin-top: 1rem;
+            text-align: center;
+          }
 
         .error-message {
           background: #FFEBEE;
