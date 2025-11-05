@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import { use, useState } from "react";
 import { useNavigate } from "react-router";
+import { useCart } from "~/hooks/CartContext";
 
 interface ProductDetailProps {
   product: any;
@@ -53,9 +54,12 @@ export default function ProductDetail({
   const images = product.image_url
     ? [product.image_url]
     : ["/placeholder-coffee.jpg"];
+  const { addToCart } = useCart(); // Make sure this doesn't throw error
 
   const handleAddToCart = () => {
     console.log(`Added ${quantity} ${product.name} to cart`);
+    addToCart(product); // Pass full product object
+
     navigate("/cart");
   };
 

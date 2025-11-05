@@ -22,6 +22,7 @@ export default [
     route("auth/login", "routes/auth/login.tsx"),
     route("dashboard", "routes/dashboard.tsx"),
     route("cart", "routes/protected-cart.tsx"),
+    route("shipping", "routes/shipping.tsx"),
     route("auth/forgot-password", "routes/auth/forgot-password.tsx"),
   ]),
 ] satisfies RouteConfig;
