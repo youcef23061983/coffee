@@ -12,7 +12,6 @@
     "@emailjs/browser": "^4.4.1",
     "@react-router/node": "^7.9.2",
     "@react-router/serve": "^7.9.2",
-    "@supabase/auth-helpers-react": "^0.5.0",
     "@supabase/supabase-js": "^2.75.0",
     "@vercel/react-router": "^1.2.3",
     "framer-motion": "^12.23.24",

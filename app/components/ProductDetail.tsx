@@ -1,6 +1,7 @@
 // app/components/ProductDetail.tsx
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { use, useState } from "react";
+import { useNavigate } from "react-router";
 
 interface ProductDetailProps {
   product: any;
@@ -15,6 +16,7 @@ export default function ProductDetail({
 }: ProductDetailProps) {
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
+  const navigate = useNavigate();
 
   if (error) {
     return (
@@ -54,6 +56,7 @@ export default function ProductDetail({
 
   const handleAddToCart = () => {
     console.log(`Added ${quantity} ${product.name} to cart`);
+    navigate("/cart");
   };
 
   return (
