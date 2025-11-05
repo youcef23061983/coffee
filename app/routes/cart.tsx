@@ -1,16 +1,10 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "~/hooks/CartContext";
 import { Link } from "react-router";
-import { useState, useEffect } from "react";
 
 const Cart = () => {
   const { cart, total, amount, increase, decrease, remove, clearCart } =
     useCart();
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
 
   console.log("this is cart :", cart);
 
