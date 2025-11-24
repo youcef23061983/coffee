@@ -6,6 +6,7 @@ const Cart = () => {
   const { cart, total, amount, increase, decrease, remove, clearCart } =
     useCart();
 
+  console.log("this is cart amount :", amount);
   console.log("this is cart :", cart);
 
   // Animation variants with proper TypeScript types
@@ -209,10 +210,10 @@ const Cart = () => {
                             {item.name}
                           </h3>
                           <p className="text-2xl font-bold text-amber-600 mb-4">
-                            $
                             {(
                               (item.newPrice || item.price) * item.amount
-                            ).toFixed(2)}
+                            ).toFixed(2)}{" "}
+                            $
                           </p>
 
                           {/* Quantity Controls */}
