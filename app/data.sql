@@ -405,3 +405,64 @@ END;
 $$ language 'plpgsql';
 
 CREATE TRIGGER update_testimonials_updated_at BEFORE UPDATE ON testimonials FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+
+--////////////////// orders table:\\\\\\\\\\\\\
+-- Create orders table
+CREATE TABLE IF NOT EXISTS orders (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  stripe_payment_intent_id TEXT UNIQUE NOT NULL,  
+  -- Order summary
+  total_quantity INTEGER NOT NULL CHECK (total_quantity > 0), 
+  total_amount INTEGER NOT NULL CHECK (total_amount > 0), 
+  -- Customer information
+  customer_email TEXT,
+  customer_name TEXT,
+  user_id UUID REFERENCES auth.users(id) ON DELETE SET NULL,  
+  -- Shipping information
+  shipping_address TEXt NOT NULL,
+  shipping_city TEXT NOT NULL,
+  shipping_postal_code TEXT NOT NULL,
+  shipping_country TEXT NOT NULL,
+  shipping_phone TEXT NOT NULL,  
+  payment_intent_id TEXT NOT NULL,
+  -- Timestamps
+  created_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
+  updated_at TIMESTAMPTZ DEFAULT NOW() NOT NULL
+);
+ALTER TABLE orders ADD COLUMN invoice_url TEXT;
+
+CREATE TABLE order_items (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  order_id UUID NOT NULL REFERENCES orders(id) ON DELETE CASCADE,
+  
+  -- Product information
+  product_id TEXT NOT NULL,
+  product_name TEXT NOT NULL,
+  product_type TEXT NOT NULL CHECK (product_type IN ('coffee', 'equipment')),
+  
+  -- Item details
+  quantity INTEGER NOT NULL CHECK (quantity > 0),
+  unit_price INTEGER NOT NULL CHECK (unit_price > 0), -- Price in cents per unit
+  item_total INTEGER NOT NULL CHECK (item_total > 0), -- unit_price * quantity in cents
+  
+  -- Ensure item_total = unit_price * quantity
+  CONSTRAINT correct_item_total CHECK (item_total = unit_price * quantity)
+);
+
+
+-- Enable RLS but allow all operations for this bucket
+CREATE POLICY "Allow all operations on orders bucket" ON storage.objects
+FOR ALL USING (bucket_id = 'orders');
+
+-- Or more restrictive policies:
+CREATE POLICY "Allow public insert" ON storage.objects
+FOR INSERT WITH CHECK (bucket_id = 'orders');
+
+CREATE POLICY "Allow public select" ON storage.objects
+FOR SELECT USING (bucket_id = 'orders');
+
+CREATE POLICY "Allow public update" ON storage.objects
+FOR UPDATE USING (bucket_id = 'orders');
+
+CREATE POLICY "Allow public delete" ON storage.objects
+FOR DELETE USING (bucket_id = 'orders');

@@ -9,6 +9,7 @@ interface CartItem {
   image_url?: string; // Add this line
   image?: string; // Keep this for backward compatibility
   newPrice?: number;
+  product_type: "coffee" | "equipment"; // Add this line
 }
 interface CartState {
   cart: CartItem[];

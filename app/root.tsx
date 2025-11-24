@@ -31,6 +31,41 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        {/* {import.meta.env.PROD ? (
+          <meta
+            httpEquiv="Content-Security-Policy"
+            content="default-src 'self'; 
+             script-src 'self' 'unsafe-inline' https://js.stripe.com https://m.stripe.network https://gc.kis.v2.scr.kaspersky-labs.com https://uwlvntnhblgzlytemdtb.supabase.co https://*.supabase.co; 
+             style-src 'self' 'unsafe-inline' https://js.stripe.com https://m.stripe.network https://gc.kis.v2.scr.kaspersky-labs.com https://uwlvntnhblgzlytemdtb.supabase.co https://*.supabase.co; 
+             connect-src 'self' https://api.stripe.com https://uwlvntnhblgzlytemdtb.supabase.co https://*.supabase.co https://gc.kis.v2.scr.kaspersky-labs.com; 
+             img-src 'self' https://*.supabase.co data: blob:; 
+             frame-src https://js.stripe.com https://hooks.stripe.com; 
+             child-src https://js.stripe.com https://hooks.stripe.com;"
+          />
+        ) : (
+          <meta
+            httpEquiv="Content-Security-Policy"
+            content="default-src * 'unsafe-inline' 'unsafe-eval'; script-src * 'unsafe-inline' 'unsafe-eval'; style-src * 'unsafe-inline'; connect-src *; img-src * data: blob:; frame-src *;"
+          />
+        )} */}
+        {/* {import.meta.env.PROD ? (
+          <meta
+            httpEquiv="Content-Security-Policy"
+            content="default-src 'self'; 
+             script-src 'self' 'unsafe-inline' https://js.stripe.com https://m.stripe.network https://gc.kis.v2.scr.kaspersky-labs.com https://uwlvntnhblgzlytemdtb.supabase.co https://*.supabase.co; 
+             style-src 'self' 'unsafe-inline' https://js.stripe.com https://m.stripe.network https://gc.kis.v2.scr.kaspersky-labs.com https://uwlvntnhblgzlytemdtb.supabase.co https://*.supabase.co; 
+             connect-src 'self' https://api.stripe.com https://uwlvntnhblgzlytemdtb.supabase.co https://*.supabase.co https://gc.kis.v2.scr.kaspersky-labs.com; 
+             img-src 'self' https://*.supabase.co data: blob:; 
+             frame-src https://js.stripe.com https://hooks.stripe.com; 
+             child-src https://js.stripe.com https://hooks.stripe.com;"
+          />
+        ) : (
+          <meta
+            httpEquiv="Content-Security-Policy"
+            content="default-src * 'unsafe-inline' 'unsafe-eval'; script-src * 'unsafe-inline' 'unsafe-eval'; style-src * 'unsafe-inline'; connect-src *; img-src * data: blob:; frame-src *;"
+          />
+        )} */}
+
         <Meta />
         <Links />
       </head>

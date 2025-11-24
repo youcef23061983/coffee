@@ -12,7 +12,7 @@ export function AuthProvider({ children }) {
       if (event === "SIGNED_IN" && session?.user) {
         // Send welcome email to new users
         try {
-          await supabase.functions.invoke("send-welcome-email", {
+          await supabase.functions.invoke("welcome-email", {
             body: {
               userEmail: session.user.email,
               userName: session.user.user_metadata?.name || "there",

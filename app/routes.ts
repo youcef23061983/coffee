@@ -17,12 +17,20 @@ export default [
     route("testimonials", "routes/TestimonialsGrid.tsx"),
     route("about", "routes/about.tsx"),
     route("contact", "routes/contact.tsx"),
-    route("addTestimonial", "routes/AddTestimonial.tsx"),
+    route("addTestimonial", "routes/protected-addtestimonial.tsx"),
     route("auth/signup", "routes/auth/signUp.tsx"),
     route("auth/login", "routes/auth/login.tsx"),
     route("dashboard", "routes/dashboard.tsx"),
     route("cart", "routes/protected-cart.tsx"),
     route("shipping", "routes/shipping.tsx"),
+    route("payment", "routes/payment.tsx"),
     route("auth/forgot-password", "routes/auth/forgot-password.tsx"),
+    route("order-success", "routes/order-success.tsx"),
+
+    // ✅ ADD ALL YOUR API ROUTES
+    route("api/create-payment-intent", "routes/api.create-payment-intent.ts"),
+    route("api/send-grid-email", "routes/api.send-grid-email.ts"),
+    route("api/send-order-sms", "routes/api.send-order-sms.ts"),
+    route("api/generate-invoice", "routes/api.generate-invoice.ts"),
   ]),
 ] satisfies RouteConfig;

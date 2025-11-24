@@ -572,7 +572,7 @@ export default function BrandsClient({
                     className="w-full h-full object-cover"
                   />
                 ) : (
-                  <div className="w-full h-full bg-gradient-to-br from-amber-200 to-orange-300 flex items-center justify-center text-white text-2xl font-bold">
+                  <div className="w-full h-full bg-linear-to-br from-amber-200 to-orange-300 flex items-center justify-center text-white text-2xl font-bold">
                     {brand.name.charAt(0)}
                   </div>
                 )}
@@ -652,7 +652,7 @@ export default function BrandsClient({
                   className="bg-white rounded-2xl shadow-sm border overflow-hidden hover:shadow-md transition-all"
                 >
                   {/* Product Image */}
-                  <div className="h-48 bg-gradient-to-br from-amber-100 to-orange-200 relative">
+                  <div className="h-48 bg-linear-to-br from-amber-100 to-orange-200 relative">
                     {product.image_url ? (
                       <img
                         src={product.image_url}

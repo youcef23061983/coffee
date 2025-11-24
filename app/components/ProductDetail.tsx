@@ -9,6 +9,32 @@ interface ProductDetailProps {
   type: "coffee" | "equipment";
   error?: string;
 }
+interface BaseProduct {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  image_url?: string;
+  product_type: "coffee" | "equipment";
+  // ... other common fields
+}
+
+interface CoffeeProduct extends BaseProduct {
+  product_type: "coffee";
+  roast_level?: string;
+  origin_country?: string;
+  process_method?: string;
+  // ... other coffee-specific fields
+}
+
+interface EquipmentProduct extends BaseProduct {
+  product_type: "equipment";
+  category?: string;
+  skill_level?: string;
+  // ... other equipment-specific fields
+}
+
+type Product = CoffeeProduct | EquipmentProduct;
 
 export default function ProductDetail({
   product,
