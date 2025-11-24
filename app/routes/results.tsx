@@ -203,7 +203,7 @@ const Results = () => {
                   className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-200 flex flex-col" // Added flex flex-col here
                 >
                   {/* Coffee Image/Placeholder */}
-                  <div className="h-48 bg-gradient-to-br from-amber-200 to-orange-300 flex items-center justify-center">
+                  <div className="h-48 bg-linear-to-br from-amber-200 to-orange-300 flex items-center justify-center">
                     {coffee.imageUrl ? (
                       <img
                         src={coffee.imageUrl}
@@ -215,7 +215,7 @@ const Results = () => {
                     )}
                   </div>
 
-                  <div className="p-6 flex flex-col flex-grow">
+                  <div className="p-6 flex flex-col grow">
                     {" "}
                     {/* Added flex classes here */}
                     {/* Header with match badge */}
