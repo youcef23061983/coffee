@@ -253,39 +253,69 @@ const CheckoutForm = () => {
                 );
               }
 
-              // Send email WITH invoice link (only if we have one)
-              debugLog("Sending confirmation email...");
-              await fetch("/api/send-grid-email", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                  ...notificationData,
-                  invoiceUrl: invoiceUrl,
-                  subject: `🧾 Order Confirmation #${paymentIntent.id}`,
-                }),
-              });
-
-              // Send SMS WITH invoice link (only if we have one and Twilio is fixed)
-              if (shipping.fullPhone && invoiceUrl) {
-                // ✅ Only send SMS if we have invoice URL
-                debugLog("Sending confirmation SMS with invoice link...");
-                await fetch("/api/send-order-sms", {
+              // Send email WITH invoice link
+              try {
+                debugLog("Sending confirmation email...");
+                await fetch("/api/send-grid-email", {
                   method: "POST",
                   headers: {
                     "Content-Type": "application/json",
                   },
                   body: JSON.stringify({
-                    to: shipping.fullPhone,
-                    orderId: paymentIntent.id,
-                    customerName: shipping.fullName,
-                    total: total,
-                    invoiceUrl: invoiceUrl, // ✅ Now invoiceUrl is properly assigned
+                    ...notificationData,
+                    invoiceUrl: invoiceUrl,
+                    subject: `🧾 Order Confirmation #${paymentIntent.id}`,
                   }),
                 });
-              } else if (shipping.fullPhone) {
-                debugLog("⚠️ Skipping SMS - no invoice URL available");
+                debugLog("✅ Email sent");
+              } catch (emailError) {
+                debugLog("⚠️ Email sending failed:", emailError);
+              }
+
+              // Send SMS WITH invoice link (only if we have invoice URL)
+              if (shipping.fullPhone && invoiceUrl) {
+                try {
+                  debugLog("Sending confirmation SMS...");
+                  await fetch("/api/send-order-sms", {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                      to: shipping.fullPhone,
+                      orderId: paymentIntent.id,
+                      customerName: shipping.fullName,
+                      total: total,
+                      invoiceUrl: invoiceUrl,
+                    }),
+                  });
+                  debugLog("✅ SMS sent");
+                } catch (smsError) {
+                  debugLog("⚠️ SMS sending failed:", smsError);
+                }
+              }
+
+              // Send WhatsApp message (works without invoice URL)
+              if (shipping.fullPhone) {
+                try {
+                  debugLog("Sending WhatsApp confirmation...");
+                  await fetch("/api/send-whatsapp", {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                      to: shipping.fullPhone,
+                      orderId: paymentIntent.id,
+                      customerName: shipping.fullName,
+                      total: total,
+                      invoiceUrl: invoiceUrl, // Optional
+                    }),
+                  });
+                  debugLog("✅ WhatsApp message sent");
+                } catch (whatsappError) {
+                  debugLog("⚠️ WhatsApp sending failed:", whatsappError);
+                }
               }
 
               debugLog("✅ All notifications sent successfully");

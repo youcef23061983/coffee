@@ -32,5 +32,6 @@ export default [
     route("api/send-grid-email", "routes/api.send-grid-email.ts"),
     route("api/send-order-sms", "routes/api.send-order-sms.ts"),
     route("api/generate-invoice", "routes/api.generate-invoice.ts"),
+    route("api/send-whatsapp", "routes/api.send-whatsapp.ts"),
   ]),
 ] satisfies RouteConfig;

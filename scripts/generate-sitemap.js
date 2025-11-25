@@ -2,7 +2,7 @@
 import { routes } from "../app/routes.js";
 
 export function generateSitemapFromRoutes(routes) {
-  const baseUrl = "https://yoursite.com";
+  const baseUrl = "https://coffee-khaki-seven.vercel.app";
 
   return routes
     .filter(
