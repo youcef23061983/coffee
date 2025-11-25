@@ -2,25 +2,21 @@
 import { supabase } from "~/supabase_client";
 
 export async function loader() {
-  // Get all brands for sitemap
+  // Remove the .eq('active', true) filter since the column doesn't exist
   const { data: brands, error } = await supabase
     .from("brands")
-    .select("id, updated_at, name")
-    .eq("active", true);
+    .select("id, updated_at, name");
+  // ⬇️ REMOVE THIS LINE ⬇️
+  // .eq('active', true)
+
   if (error) {
     console.error("Error fetching brands:", error);
-    // Return the error details so we can see them
-    return new Response(JSON.stringify({ error: error.message }), {
-      status: 500,
-      headers: { "Content-Type": "application/json" },
-    });
+    // Still return a basic sitemap without brands
   }
-  console.log("Brands found:", brands?.length); // Check if we're getting any brands
 
   const baseUrl = "https://coffee-khaki-seven.vercel.app";
   const currentDate = new Date().toISOString();
 
-  // ✅ FIXED: Direct brand URLs without /brands/ prefix
   const brandUrls =
     brands
       ?.map(
@@ -141,8 +137,8 @@ export async function loader() {
     <priority>0.3</priority>
   </url>
   
-  <!-- ✅ FIXED: Direct Brand Pages (e.g., /starbucks, /nespresso) -->
-  ${brandUrls || "<!-- No brand URLs generated -->"}
+  <!-- Brand Pages -->
+  ${brandUrls}
 </urlset>`;
 
   return new Response(sitemap, {
