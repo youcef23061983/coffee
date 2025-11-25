@@ -6,8 +6,6 @@ export async function loader() {
   const { data: brands, error } = await supabase
     .from("brands")
     .select("id, updated_at, name");
-  // ⬇️ REMOVE THIS LINE ⬇️
-  // .eq('active', true)
 
   if (error) {
     console.error("Error fetching brands:", error);
