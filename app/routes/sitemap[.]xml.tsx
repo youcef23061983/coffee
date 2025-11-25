@@ -7,10 +7,15 @@ export async function loader() {
     .from("brands")
     .select("id, updated_at, name")
     .eq("active", true);
-
   if (error) {
     console.error("Error fetching brands:", error);
+    // Return the error details so we can see them
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
   }
+  console.log("Brands found:", brands?.length); // Check if we're getting any brands
 
   const baseUrl = "https://coffee-khaki-seven.vercel.app";
   const currentDate = new Date().toISOString();
@@ -137,7 +142,7 @@ export async function loader() {
   </url>
   
   <!-- ✅ FIXED: Direct Brand Pages (e.g., /starbucks, /nespresso) -->
-  ${brandUrls}
+  ${brandUrls || "<!-- No brand URLs generated -->"}
 </urlset>`;
 
   return new Response(sitemap, {
