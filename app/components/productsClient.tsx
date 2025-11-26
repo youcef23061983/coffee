@@ -887,6 +887,7 @@ const ProductsClient = () => {
                           }}
                           whileHover={{ scale: 1.1 }}
                           transition={{ duration: 0.4 }}
+                          loading="lazy"
                         />
 
                         {/* Stock Badge */}

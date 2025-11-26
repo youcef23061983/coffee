@@ -805,6 +805,7 @@ const Shipping = () => {
                             src={item.image_url}
                             alt={item.name}
                             className="w-8 h-8 object-cover rounded"
+                            loading="lazy"
                           />
                         ) : (
                           <span className="text-blue-500">☕</span>

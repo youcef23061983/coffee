@@ -28,7 +28,9 @@ export function Welcome({ data, brands }: WelcomeProps) {
           autoPlay
           muted
           loop
-          className="absolute inset-0 w-full h-full object-cover  "
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+          preload="metadata"
         >
           <source src="/coffee.mp4" type="video/mp4" />
         </video>
@@ -202,9 +204,10 @@ export function Welcome({ data, brands }: WelcomeProps) {
               >
                 <div className="w-20 h-20 rounded-full mx-auto mb-4 group-hover:scale-110 transition-transform overflow-hidden bg-gray-100">
                   <img
-                    alt=""
+                    alt="brand_logo"
                     src={brand.logo_url}
                     className="w-full h-full object-cover"
+                    loading="lazy"
                   />
                 </div>
 
@@ -291,7 +294,7 @@ export function Welcome({ data, brands }: WelcomeProps) {
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.3, delay: index * 0.1 }}
-                className={`bg-gradient-to-br ${category.color} text-white rounded-xl p-6 text-center cursor-pointer hover:scale-105 transition-transform shadow-lg`}
+                className={`bg-linear-to-br ${category.color} text-white rounded-xl p-6 text-center cursor-pointer hover:scale-105 transition-transform shadow-lg`}
               >
                 <h3 className="font-bold text-lg mb-2">{category.name}</h3>
                 <p className="text-sm opacity-90">{category.count}</p>
@@ -377,7 +380,7 @@ export function Welcome({ data, brands }: WelcomeProps) {
           </div>
         </div>
       </section>
-      <section className="py-20 bg-gradient-to-br from-[#8B4513] to-[#6B3410] text-white">
+      <section className="py-20 bg-linear-to-br from-[#8B4513] to-[#6B3410] text-white">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <motion.h2
             initial={{ opacity: 0, y: 30 }}

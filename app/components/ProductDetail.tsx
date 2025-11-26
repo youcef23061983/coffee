@@ -140,6 +140,7 @@ export default function ProductDetail({
                   src={images[selectedImage]}
                   alt={product.name}
                   className="w-full h-full object-cover"
+                  loading="lazy"
                 />
                 {!product.in_stock && (
                   <div className="absolute top-4 right-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold">
@@ -167,6 +168,7 @@ export default function ProductDetail({
                         src={image}
                         alt={`${product.name} ${index + 1}`}
                         className="w-full h-full object-cover"
+                        loading="lazy"
                       />
                     </motion.button>
                   ))}

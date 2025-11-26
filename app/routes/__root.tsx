@@ -8,7 +8,7 @@ export default function RootLayout() {
     <div>
       <Navbar />
       <main>
-        <Outlet /> {/* 👈 child routes render here */}
+        <Outlet />
       </main>
     </div>
   );

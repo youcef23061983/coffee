@@ -114,90 +114,6 @@ const Results = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {recommendedCoffees?.map((coffee: any) => (
-                // <div
-                //   key={coffee.id}
-                //   className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-200"
-                // >
-                //   {/* Coffee Image/Placeholder */}
-                //   <div className="h-48 bg-gradient-to-br from-amber-200 to-orange-300 flex items-center justify-center">
-                //     {coffee.imageUrl ? (
-                //       <img
-                //         src={coffee.imageUrl}
-                //         alt={coffee.name}
-                //         className="h-full w-full object-cover"
-                //       />
-                //     ) : (
-                //       <span className="text-6xl">☕</span>
-                //     )}
-                //   </div>
-
-                //   <div className="p-6">
-                //     <div className="flex justify-between items-start mb-3">
-                //       <h3 className="text-xl font-medium text-gray-900 pr-2">
-                //         {coffee.name}
-                //       </h3>
-                //       <span
-                //         className={`px-3 py-1 rounded-full text-sm font-semibold ${
-                //           coffee.match >= 80
-                //             ? "bg-green-100 text-green-800"
-                //             : coffee.match >= 60
-                //               ? "bg-yellow-100 text-yellow-800"
-                //               : "bg-blue-100 text-blue-800"
-                //         }`}
-                //       >
-                //         {coffee.match}% match
-                //       </span>
-                //     </div>
-
-                //     <div className="flex items-center gap-4 mb-3">
-                //       {coffee.roaster && (
-                //         <span className="text-sm font-medium text-gray-700 bg-gray-100 px-2 py-1 rounded">
-                //           {coffee.roaster}
-                //         </span>
-                //       )}
-                //       <span className="text-sm text-gray-500 capitalize">
-                //         {coffee.roast} Roast
-                //       </span>
-                //     </div>
-
-                //     <p className="text-gray-600 mb-4 line-clamp-2">
-                //       {coffee.description}
-                //     </p>
-
-                //     {coffee.flavorProfile &&
-                //       coffee.flavorProfile.length > 0 && (
-                //         <div className="mb-4">
-                //           <p className="text-sm font-medium text-gray-700 mb-2">
-                //             Flavor Notes:
-                //           </p>
-                //           <div className="flex flex-wrap gap-1">
-                //             {coffee.flavorProfile.map(
-                //               (flavor: string, index: number) => (
-                //                 <span
-                //                   key={index}
-                //                   className="bg-amber-100 text-amber-800 text-xs px-2 py-1 rounded-full"
-                //                 >
-                //                   {flavor}
-                //                 </span>
-                //               )
-                //             )}
-                //           </div>
-                //         </div>
-                //       )}
-
-                //     <div className="flex items-center justify-between pt-4 border-t border-gray-200">
-                //       <span className="text-2xl font-bold text-gray-900">
-                //         ${coffee.price}
-                //       </span>
-                //       <button
-                //         className="bg-[#b07d52] text-white px-4 py-2 rounded-lg hover:bg-[#4d341f] transition-colors"
-                //         onClick={() => navigate(`/products/${coffee.id}`)}
-                //       >
-                //         View Details
-                //       </button>
-                //     </div>
-                //   </div>
-                // </div>
                 <div
                   key={coffee.id}
                   className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-200 flex flex-col" // Added flex flex-col here
@@ -209,6 +125,7 @@ const Results = () => {
                         src={coffee.imageUrl}
                         alt={coffee.name}
                         className="h-full w-full object-cover"
+                        loading="lazy"
                       />
                     ) : (
                       <span className="text-6xl">☕</span>

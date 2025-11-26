@@ -26,7 +26,7 @@ function ProductGrid({ products }: ProductGridProps) {
           key={product.id}
           className={`product-card ${product.product_type}`}
         >
-          <img src={product.image_url} alt={product.name} />
+          <img src={product.image_url} alt={product.name} loading="lazy" />
           <div className="product-info">
             <h3>{product.name}</h3>
             <p className="brand">{product.brand_name}</p>
