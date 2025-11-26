@@ -12,7 +12,7 @@ interface SMSData {
   total: number;
   invoiceUrl?: string;
 }
-export const sendOrderConfirmationSMS = async (smsData: SMSData) => {
+export async function sendWhatsAppMessage(smsData: SMSData) {
   const invoiceText = smsData.invoiceUrl
     ? `\n📄 Invoice: ${smsData.invoiceUrl}`
     : "";
@@ -30,7 +30,7 @@ We're brewing your order now! Track your order with your order ID.
 
   await client.messages.create({
     body: message,
-    from: process.env.TWILIO_PHONE_NUMBER,
-    to: smsData.to,
+    from: process.env.TWILIO_WHATSAPP_FROM,
+    to: `whatsapp:${smsData.to}`, // Format: whatsapp:+1234567890
   });
-};
+}

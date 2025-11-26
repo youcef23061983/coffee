@@ -297,9 +297,33 @@ const CheckoutForm = () => {
 
               // Send WhatsApp message (works without invoice URL)
               if (shipping.fullPhone) {
+                //   try {
+                // sending whatsApp message WITH  callmebot
+
+                //     debugLog("Sending WhatsApp confirmation...");
+                //     await fetch("/api/send-whatsapp", {
+                //       method: "POST",
+                //       headers: {
+                //         "Content-Type": "application/json",
+                //       },
+                //       body: JSON.stringify({
+                // to: shipping.fullPhone,
+                // orderId: paymentIntent.id,
+                // customerName: shipping.fullName,
+                // total: total,
+                // invoiceUrl: invoiceUrl, // Optional
+                //       }),
+                //     });
+                //     debugLog("✅ WhatsApp message sent");
+                //   } catch (whatsappError) {
+                //     debugLog("⚠️ WhatsApp sending failed:", whatsappError);
+                //   }
+                // }
                 try {
+                  // sending whatsApp message WITH  twilio whatsapp
+
                   debugLog("Sending WhatsApp confirmation...");
-                  await fetch("/api/send-whatsapp", {
+                  await fetch("/api/send-whatsApp-message", {
                     method: "POST",
                     headers: {
                       "Content-Type": "application/json",
