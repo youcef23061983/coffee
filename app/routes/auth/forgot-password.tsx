@@ -31,7 +31,8 @@ export const action: ActionFunction = async ({ request }) => {
 
     // Redirect directly to reset-password instead of callback
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${origin}/auth/reset-password`,
+      // redirectTo: `${origin}/auth/reset-password`,
+      redirectTo: `${origin}/auth/callback`, // Use callback route
     });
 
     if (error) {

@@ -1,4 +1,4 @@
-// app/routes/auth.callback.tsx
+// app/routes/auth.callback.tsx (implicit flow version)
 import { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router";
 import { supabase } from "~/supabase_client";
@@ -9,64 +9,55 @@ export default function AuthCallback() {
 
   useEffect(() => {
     const handleCallback = async () => {
-      const code = searchParams.get("code");
-      console.log("🔍 Callback - Code received:", code);
-      console.log("🔍 Full URL:", window.location.href);
+      // For implicit flow, we get access_token and refresh_token directly
+      const access_token = searchParams.get("access_token");
+      const refresh_token = searchParams.get("refresh_token");
+      const error = searchParams.get("error");
+      const error_description = searchParams.get("error_description");
 
-      if (!code) {
-        console.error("❌ No code found in URL");
-        navigate("/auth/reset-password?error=no_code");
+      console.log("🔍 Callback - Implicit flow tokens:", {
+        access_token: access_token ? "Present" : "Missing",
+        refresh_token: refresh_token ? "Present" : "Missing",
+        error,
+        error_description,
+      });
+
+      if (error) {
+        console.error("❌ Auth error:", error, error_description);
+        navigate(`/auth/reset-password?error=auth_${error}`);
         return;
       }
 
-      try {
-        console.log("🔄 Step 1: Checking existing session...");
-        const {
-          data: { session: existingSession },
-        } = await supabase.auth.getSession();
-        console.log("🔍 Existing session:", existingSession);
-
-        console.log("🔄 Step 2: Exchanging code for session...");
-        const { data, error } =
-          await supabase.auth.exchangeCodeForSession(code);
-
-        if (error) {
-          console.error("❌ Code exchange failed:", {
-            message: error.message,
-            status: error.status,
-            name: error.name,
+      if (access_token && refresh_token) {
+        try {
+          console.log("🔄 Setting session from tokens...");
+          const { data, error: sessionError } = await supabase.auth.setSession({
+            access_token,
+            refresh_token,
           });
-          navigate("/auth/reset-password?error=invalid_code");
-          return;
+
+          if (sessionError) {
+            console.error("❌ Session setting failed:", sessionError);
+            navigate("/auth/reset-password?error=session_error");
+            return;
+          }
+
+          console.log("✅ Session set successfully!");
+          console.log("🔍 User:", data.user?.email);
+
+          // Clean up URL by removing tokens
+          const cleanUrl = new URL(window.location.href);
+          cleanUrl.search = "";
+          window.history.replaceState({}, "", cleanUrl.toString());
+
+          navigate("/auth/reset-password");
+        } catch (error) {
+          console.error("❌ Error setting session:", error);
+          navigate("/auth/reset-password?error=unexpected_error");
         }
-
-        console.log("✅ Code exchange successful!");
-        console.log("🔍 Received data:", {
-          user: data.user?.email,
-          hasSession: !!data.session,
-        });
-
-        console.log("🔄 Step 3: Verifying session was stored...");
-        const {
-          data: { session: verifiedSession },
-        } = await supabase.auth.getSession();
-        console.log("🔍 Verified session:", verifiedSession);
-
-        if (verifiedSession) {
-          console.log("✅ Session verified! User:", verifiedSession.user.email);
-          console.log("🔄 Step 4: Redirecting to reset password...");
-
-          // Use a shorter delay
-          setTimeout(() => {
-            navigate("/auth/reset-password");
-          }, 100);
-        } else {
-          console.error("❌ Session was not persisted after exchange");
-          navigate("/auth/reset-password?error=session_not_persisted");
-        }
-      } catch (error) {
-        console.error("❌ Unexpected error:", error);
-        navigate("/auth/reset-password?error=unexpected_error");
+      } else {
+        console.error("❌ No tokens found in URL");
+        navigate("/auth/reset-password?error=no_tokens");
       }
     };
 
