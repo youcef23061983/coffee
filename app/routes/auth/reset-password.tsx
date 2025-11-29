@@ -680,101 +680,166 @@ export const action: ActionFunction = async ({ request }) => {
   }
 };
 export default function ResetPasswordRoute() {
-  const actionData = useActionData() as ActionResponse | undefined;
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
 
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [currentSession, setCurrentSession] = useState<any>(null);
+  const [resetStatus, setResetStatus] = useState<{
+    success?: boolean;
+    message?: string;
+    error?: string;
+  } | null>(null);
+
+  const handleClientSideReset = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!password || !confirmPassword) {
+      setResetStatus({
+        success: false,
+        error: "All fields are required",
+      });
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setResetStatus({
+        success: false,
+        error: "Passwords do not match",
+      });
+      return;
+    }
+
+    if (password.length < 6) {
+      setResetStatus({
+        success: false,
+        error: "Password must be at least 6 characters",
+      });
+      return;
+    }
+
+    try {
+      console.log("🔄 Starting client-side password reset...");
+
+      // Update the user's password directly from client
+      const { error: updateError } = await supabase.auth.updateUser({
+        password: password,
+      });
+
+      if (updateError) {
+        console.error("❌ Error updating password:", updateError);
+        setResetStatus({
+          success: false,
+          error: updateError.message,
+        });
+        return;
+      }
+
+      console.log("✅ Password updated successfully");
+
+      // Sign out the user after password reset
+      await supabase.auth.signOut();
+      console.log("✅ User signed out after password reset");
+
+      setResetStatus({
+        success: true,
+        message:
+          "Password reset successfully! You can now sign in with your new password.",
+      });
+    } catch (error: unknown) {
+      const errorMessage =
+        error instanceof Error ? error.message : "An unknown error occurred";
+      console.error("❌ Client-side reset error:", errorMessage);
+      setResetStatus({
+        success: false,
+        error: errorMessage,
+      });
+    }
+  };
 
   return (
     <ResetPasswordClient>
-      {(
-        { hasSession, isReady, processingCode, errorMessage, userEmail } // Add userEmail here
-      ) => {
-        useEffect(() => {
-          const getSession = async () => {
-            if (hasSession) {
-              const {
-                data: { session },
-              } = await supabase.auth.getSession();
-              setCurrentSession(session);
-            }
-          };
-          getSession();
-        }, [hasSession]);
-        return (
-          <div className="signup-container">
-            <div className="signup-card">
-              <div className="signup-header">
-                <div className="coffee-icon">🔄</div>
-                <h1>Set New Password</h1>
-                <p>Create a new password for your account</p>
+      {({ hasSession, isReady, processingCode, errorMessage, userEmail }) => (
+        <div className="signup-container">
+          <div className="signup-card">
+            <div className="signup-header">
+              <div className="coffee-icon">🔄</div>
+              <h1>Set New Password</h1>
+              <p>Create a new password for your account</p>
+            </div>
+
+            {/* Show loading while processing code */}
+            {processingCode && (
+              <div className="success-message">
+                <div className="coffee-icon">⏳</div>
+                <h3>Verifying Reset Link</h3>
+                <p>Please wait while we verify your reset link...</p>
               </div>
+            )}
 
-              {/* Show loading while processing code */}
-              {processingCode && (
-                <div className="success-message">
-                  <div className="coffee-icon">⏳</div>
-                  <h3>Verifying Reset Link</h3>
-                  <p>Please wait while we verify your reset link...</p>
+            {/* Show error message */}
+            {errorMessage && !processingCode && (
+              <div className="error-message">
+                ❌ {errorMessage}
+                <div className="mt-3 text-center">
+                  <a href="/auth/forgot-password" className="login-link">
+                    Request a new reset link
+                  </a>
                 </div>
-              )}
+              </div>
+            )}
 
-              {/* Show error message */}
-              {errorMessage && !processingCode && (
-                <div className="error-message">
-                  ❌ {errorMessage}
-                  <div className="mt-3 text-center">
-                    <a href="/auth/forgot-password" className="login-link">
-                      Request a new reset link
-                    </a>
+            {/* Show no session error */}
+            {!hasSession && !errorMessage && !processingCode && isReady && (
+              <div className="error-message">
+                ❌ No active session found.
+                <div
+                  style={{
+                    marginTop: "1rem",
+                    fontSize: "0.9rem",
+                    color: "#666",
+                  }}
+                >
+                  <p>Please click the reset link in your email to continue.</p>
+                  <ul style={{ textAlign: "left", marginLeft: "1rem" }}>
+                    <li>Make sure you're using the same browser</li>
+                    <li>Check that the link hasn't expired</li>
+                    <li>Ensure cookies are enabled</li>
+                  </ul>
+                </div>
+                <div className="mt-3 text-center">
+                  <a href="/auth/forgot-password" className="login-link">
+                    Request New Reset Link
+                  </a>
+                </div>
+              </div>
+            )}
+
+            {/* Show password form when ready and has session */}
+            {hasSession && isReady && !processingCode && (
+              <>
+                <div
+                  className="success-message"
+                  style={{ marginBottom: "20px" }}
+                >
+                  ✅ Reset link verified for <strong>{userEmail}</strong>! You
+                  can now set your new password.
+                </div>
+
+                {resetStatus?.success ? (
+                  <div className="success-message">
+                    ✅ {resetStatus.message}
+                    <div className="mt-3 text-center">
+                      <a href="/auth/login" className="login-link">
+                        Sign in with your new password
+                      </a>
+                    </div>
                   </div>
-                </div>
-              )}
-
-              {/* Show no session error */}
-              {!hasSession && !errorMessage && !processingCode && isReady && (
-                <div className="error-message">
-                  ❌ No active session found.
-                  <div
-                    style={{
-                      marginTop: "1rem",
-                      fontSize: "0.9rem",
-                      color: "#666",
-                    }}
+                ) : (
+                  <form
+                    onSubmit={handleClientSideReset}
+                    className="signup-form"
                   >
-                    <p>
-                      Please click the reset link in your email to continue.
-                    </p>
-                    <ul style={{ textAlign: "left", marginLeft: "1rem" }}>
-                      <li>Make sure you're using the same browser</li>
-                      <li>Check that the link hasn't expired</li>
-                      <li>Ensure cookies are enabled</li>
-                    </ul>
-                  </div>
-                  <div className="mt-3 text-center">
-                    <a href="/auth/forgot-password" className="login-link">
-                      Request New Reset Link
-                    </a>
-                  </div>
-                </div>
-              )}
-
-              {/* Show password form when ready and has session */}
-              {hasSession && isReady && !processingCode && (
-                <>
-                  <div
-                    className="success-message"
-                    style={{ marginBottom: "20px" }}
-                  >
-                    ✅ Reset link verified for <strong>{userEmail}</strong>! You
-                    can now set your new password. {/* Use userEmail here */}
-                  </div>
-
-                  <Form method="post" className="signup-form">
-                    {/* Add debug info to help with session issues */}
                     <div
                       style={{
                         background: "#f0f8ff",
@@ -785,9 +850,9 @@ export default function ResetPasswordRoute() {
                         border: "1px solid #d1ecf1",
                       }}
                     >
-                      <strong>Debug Info:</strong>
+                      <strong>Session Info:</strong>
                       <div>User: {userEmail}</div>
-                      <div>Session: {hasSession ? "Active" : "Inactive"}</div>
+                      <div>Status: Ready to reset password</div>
                     </div>
 
                     <div className="form-group">
@@ -835,59 +900,57 @@ export default function ResetPasswordRoute() {
                         ? "Resetting Password..."
                         : "Reset Password"}
                     </button>
-                  </Form>
+                  </form>
+                )}
 
-                  {actionData?.success && (
-                    <div className="success-message">
-                      ✅ {actionData.message}
-                      <div className="mt-3 text-center">
-                        <a href="/auth/login" className="login-link">
-                          Sign in with your new password
-                        </a>
-                      </div>
+                {resetStatus?.error && !resetStatus.success && (
+                  <div className="error-message">
+                    ❌ {resetStatus.error}
+                    <div className="mt-3 text-center">
+                      <button
+                        onClick={() => setResetStatus(null)}
+                        className="login-link"
+                        style={{
+                          background: "none",
+                          border: "none",
+                          cursor: "pointer",
+                          fontSize: "inherit",
+                        }}
+                      >
+                        Try again
+                      </button>
                     </div>
-                  )}
+                  </div>
+                )}
+              </>
+            )}
 
-                  {actionData?.error && !actionData.success && (
-                    <div className="error-message">
-                      ❌ {actionData.error}
-                      <div className="mt-3 text-center">
-                        <a href="/auth/forgot-password" className="login-link">
-                          Try requesting a new reset link
-                        </a>
-                      </div>
-                    </div>
-                  )}
-                </>
-              )}
-
-              {/* Show loading while initializing */}
-              {!isReady && !processingCode && (
-                <div className="success-message">
-                  <div className="coffee-icon">⏳</div>
-                  <h3>Loading...</h3>
-                  <p>Please wait while we check your authentication...</p>
-                </div>
-              )}
-
-              <div className="signup-footer">
-                <p>
-                  Remember your password?{" "}
-                  <a href="/auth/login" className="login-link">
-                    Back to Sign In
-                  </a>
-                </p>
-                <p className="mt-2">
-                  Need a new reset link?{" "}
-                  <a href="/auth/forgot-password" className="login-link">
-                    Request Password Reset
-                  </a>
-                </p>
+            {/* Show loading while initializing */}
+            {!isReady && !processingCode && (
+              <div className="success-message">
+                <div className="coffee-icon">⏳</div>
+                <h3>Loading...</h3>
+                <p>Please wait while we check your authentication...</p>
               </div>
-            </div>
+            )}
 
-            {/* Keep your existing CSS styles */}
-            <style>{`
+            <div className="signup-footer">
+              <p>
+                Remember your password?{" "}
+                <a href="/auth/login" className="login-link">
+                  Back to Sign In
+                </a>
+              </p>
+              <p className="mt-2">
+                Need a new reset link?{" "}
+                <a href="/auth/forgot-password" className="login-link">
+                  Request Password Reset
+                </a>
+              </p>
+            </div>
+          </div>
+
+          <style>{`
             .form-label {
               color: #5D4037;
               font-weight: 500;
@@ -1060,9 +1123,8 @@ export default function ResetPasswordRoute() {
               }
             }
           `}</style>
-          </div>
-        );
-      }}
+        </div>
+      )}
     </ResetPasswordClient>
   );
 }
