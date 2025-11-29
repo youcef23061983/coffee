@@ -1,4 +1,3 @@
-// app/routes/auth/forgot-password.tsx
 import { Form, useActionData, useNavigation } from "react-router";
 import { supabase } from "~/supabase_client";
 import type { ActionFunction } from "react-router";
@@ -23,9 +22,13 @@ export const action: ActionFunction = async ({ request }) => {
   }
 
   try {
+    // Get the origin for redirect URL - works on both server and client
+    const url = new URL(request.url);
+    const origin = url.origin;
+
     // Send password reset email with Supabase
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${window.location.origin}/auth/reset-password`,
+      redirectTo: `${origin}/auth/reset-password`,
     });
 
     if (error) throw error;
