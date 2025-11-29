@@ -22,18 +22,21 @@ export const loader: LoaderFunction = async ({ request }) => {
   const code = url.searchParams.get("code");
 
   if (code) {
-    // Exchange the code for a session
-    const { error } = await supabase.auth.exchangeCodeForSession(code);
+    try {
+      // Exchange the code for a session
+      const { error } = await supabase.auth.exchangeCodeForSession(code);
 
-    if (error) {
-      console.error("Error exchanging code for session:", error);
-      // You might want to redirect to an error page or show an error message
-    } else {
-      // Code exchanged successfully, user now has a session
-      // Redirect to the same page without the code parameter
-      const newUrl = new URL(request.url);
-      newUrl.searchParams.delete("code");
-      return redirect(newUrl.toString());
+      if (error) {
+        console.error("Error exchanging code for session:", error);
+        // Redirect to reset-password with error
+        return redirect("/auth/reset-password?error=invalid_code");
+      } else {
+        // Successfully exchanged code, redirect to reset-password without code
+        return redirect("/auth/reset-password");
+      }
+    } catch (error) {
+      console.error("Error in loader:", error);
+      return redirect("/auth/reset-password?error=exchange_failed");
     }
   }
 
@@ -68,7 +71,7 @@ export const action: ActionFunction = async ({ request }) => {
   }
 
   try {
-    // Check if user is authenticated (from the code exchange)
+    // Check if user is authenticated
     const {
       data: { user },
       error: userError,
@@ -114,12 +117,9 @@ export default function ResetPasswordRoute() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isReady, setIsReady] = useState(false);
-
-  // Check if we have a code in the URL (this means we're processing the OTP)
-  const hasCode = searchParams.get("code");
-
-  // Check if user has a valid session (after code exchange)
   const [hasSession, setHasSession] = useState(false);
+
+  const error = searchParams.get("error");
 
   useEffect(() => {
     const checkSession = async () => {
@@ -133,20 +133,34 @@ export default function ResetPasswordRoute() {
     checkSession();
   }, []);
 
-  if (hasCode) {
+  // If we have an error parameter, show error
+  if (error) {
     return (
       <div className="signup-container">
         <div className="signup-card">
           <div className="signup-header">
-            <div className="coffee-icon">⏳</div>
-            <h1>Verifying Your Link</h1>
-            <p>Please wait while we verify your password reset link...</p>
+            <div className="coffee-icon">❌</div>
+            <h1>Reset Link Error</h1>
+            <p>There was a problem with your reset link</p>
+          </div>
+          <div className="error-message">
+            {error === "invalid_code" &&
+              "The reset link is invalid or has expired."}
+            {error === "exchange_failed" && "Failed to process the reset link."}
+            {!["invalid_code", "exchange_failed"].includes(error) &&
+              "An unknown error occurred."}
+            <div className="mt-3 text-center">
+              <a href="/auth/forgot-password" className="login-link">
+                Request a new reset link
+              </a>
+            </div>
           </div>
         </div>
       </div>
     );
   }
 
+  // Show loading state while checking session
   if (!isReady) {
     return (
       <div className="signup-container">
@@ -154,7 +168,7 @@ export default function ResetPasswordRoute() {
           <div className="signup-header">
             <div className="coffee-icon">⏳</div>
             <h1>Loading...</h1>
-            <p>Please wait while we get things ready...</p>
+            <p>Please wait while we verify your session...</p>
           </div>
         </div>
       </div>
@@ -184,10 +198,14 @@ export default function ResetPasswordRoute() {
           <>
             <Form method="post" className="signup-form">
               <div className="form-group">
+                <label htmlFor="password" className="form-label">
+                  New Password
+                </label>
                 <input
                   type="password"
+                  id="password"
                   name="password"
-                  placeholder="New password"
+                  placeholder="Enter new password"
                   required
                   disabled={isSubmitting}
                   className="form-input"
@@ -198,8 +216,12 @@ export default function ResetPasswordRoute() {
               </div>
 
               <div className="form-group">
+                <label htmlFor="confirmPassword" className="form-label">
+                  Confirm New Password
+                </label>
                 <input
                   type="password"
+                  id="confirmPassword"
                   name="confirmPassword"
                   placeholder="Confirm new password"
                   required
@@ -253,8 +275,14 @@ export default function ResetPasswordRoute() {
         </div>
       </div>
 
-      {/* Keep the same CSS styles as before */}
       <style>{`
+        .form-label {
+          color: #5D4037;
+          font-weight: 500;
+          margin-bottom: 4px;
+          font-size: 14px;
+        }
+       
         .signup-container {
           min-height: 100vh;
           display: flex;
@@ -275,9 +303,6 @@ export default function ResetPasswordRoute() {
           backdrop-filter: blur(10px);
           border: 1px solid rgba(210, 105, 30, 0.2);
         }
-
-        /* ... rest of your CSS styles ... */
-    
 
         .signup-header {
           text-align: center;
