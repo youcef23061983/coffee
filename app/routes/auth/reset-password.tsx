@@ -4,9 +4,10 @@ import {
   useActionData,
   useNavigation,
   useSearchParams,
+  redirect,
 } from "react-router";
 import { supabase } from "~/supabase_client";
-import type { ActionFunction } from "react-router";
+import type { ActionFunction, LoaderFunction } from "react-router";
 import { useState, useEffect } from "react";
 
 interface ActionResponse {
@@ -14,6 +15,30 @@ interface ActionResponse {
   message?: string;
   error?: string;
 }
+
+export const loader: LoaderFunction = async ({ request }) => {
+  // Check if we have a verification code in the URL
+  const url = new URL(request.url);
+  const code = url.searchParams.get("code");
+
+  if (code) {
+    // Exchange the code for a session
+    const { error } = await supabase.auth.exchangeCodeForSession(code);
+
+    if (error) {
+      console.error("Error exchanging code for session:", error);
+      // You might want to redirect to an error page or show an error message
+    } else {
+      // Code exchanged successfully, user now has a session
+      // Redirect to the same page without the code parameter
+      const newUrl = new URL(request.url);
+      newUrl.searchParams.delete("code");
+      return redirect(newUrl.toString());
+    }
+  }
+
+  return null;
+};
 
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
@@ -43,12 +68,27 @@ export const action: ActionFunction = async ({ request }) => {
   }
 
   try {
-    // Supabase will automatically handle the session from the URL token
+    // Check if user is authenticated (from the code exchange)
+    const {
+      data: { user },
+      error: userError,
+    } = await supabase.auth.getUser();
+
+    if (userError || !user) {
+      throw new Error(
+        "Your reset link has expired or is invalid. Please request a new password reset."
+      );
+    }
+
+    // Update the user's password
     const { error } = await supabase.auth.updateUser({
       password: password,
     });
 
     if (error) throw error;
+
+    // Sign out the user after password reset
+    await supabase.auth.signOut();
 
     return {
       success: true,
@@ -73,16 +113,53 @@ export default function ResetPasswordRoute() {
 
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [isReady, setIsReady] = useState(false);
 
-  // Check if we have a valid reset token in the URL
-  const hasToken =
-    searchParams.get("token") || searchParams.get("type") === "recovery";
+  // Check if we have a code in the URL (this means we're processing the OTP)
+  const hasCode = searchParams.get("code");
+
+  // Check if user has a valid session (after code exchange)
+  const [hasSession, setHasSession] = useState(false);
 
   useEffect(() => {
-    if (!hasToken) {
-      console.warn("No reset token found in URL");
-    }
-  }, [hasToken]);
+    const checkSession = async () => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+      setHasSession(!!session);
+      setIsReady(true);
+    };
+
+    checkSession();
+  }, []);
+
+  if (hasCode) {
+    return (
+      <div className="signup-container">
+        <div className="signup-card">
+          <div className="signup-header">
+            <div className="coffee-icon">⏳</div>
+            <h1>Verifying Your Link</h1>
+            <p>Please wait while we verify your password reset link...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!isReady) {
+    return (
+      <div className="signup-container">
+        <div className="signup-card">
+          <div className="signup-header">
+            <div className="coffee-icon">⏳</div>
+            <h1>Loading...</h1>
+            <p>Please wait while we get things ready...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="signup-container">
@@ -93,10 +170,15 @@ export default function ResetPasswordRoute() {
           <p>Create a new password for your account</p>
         </div>
 
-        {!hasToken ? (
+        {!hasSession ? (
           <div className="error-message">
             ❌ Invalid or expired reset link. Please request a new password
             reset.
+            <div className="mt-3 text-center">
+              <a href="/auth/forgot-password" className="login-link">
+                Request New Reset Link
+              </a>
+            </div>
           </div>
         ) : (
           <>
@@ -141,7 +223,7 @@ export default function ResetPasswordRoute() {
             {actionData?.success && (
               <div className="success-message">
                 ✅ {actionData.message}
-                <div className="mt-3">
+                <div className="mt-3 text-center">
                   <a href="/auth/login" className="login-link">
                     Sign in with your new password
                   </a>
@@ -171,8 +253,8 @@ export default function ResetPasswordRoute() {
         </div>
       </div>
 
+      {/* Keep the same CSS styles as before */}
       <style>{`
-        /* Copy the same CSS styles from your forgot-password.tsx */
         .signup-container {
           min-height: 100vh;
           display: flex;
@@ -193,6 +275,9 @@ export default function ResetPasswordRoute() {
           backdrop-filter: blur(10px);
           border: 1px solid rgba(210, 105, 30, 0.2);
         }
+
+        /* ... rest of your CSS styles ... */
+    
 
         .signup-header {
           text-align: center;
