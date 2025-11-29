@@ -9,11 +9,12 @@ interface ActionResponse {
   error?: string;
 }
 
+// In your forgot-password.tsx action
+// In your forgot-password.tsx action
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
   const email = formData.get("email") as string;
 
-  // Basic validation
   if (!email) {
     return {
       success: false,
@@ -22,16 +23,23 @@ export const action: ActionFunction = async ({ request }) => {
   }
 
   try {
-    // Get the origin for redirect URL - works on both server and client
     const url = new URL(request.url);
     const origin = url.origin;
 
-    // Send password reset email with Supabase
+    console.log("📧 Sending reset email to:", email);
+    console.log("🔗 Redirect URL:", `${origin}/auth/reset-password`);
+
+    // Redirect directly to reset-password instead of callback
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
       redirectTo: `${origin}/auth/reset-password`,
     });
 
-    if (error) throw error;
+    if (error) {
+      console.error("❌ Supabase reset email error:", error);
+      throw error;
+    }
+
+    console.log("✅ Reset email sent successfully");
 
     return {
       success: true,
@@ -40,6 +48,7 @@ export const action: ActionFunction = async ({ request }) => {
   } catch (error: unknown) {
     const errorMessage =
       error instanceof Error ? error.message : "An unknown error occurred";
+    console.error("❌ Action error:", errorMessage);
     return {
       success: false,
       error: errorMessage,
