@@ -17,36 +17,58 @@ interface ActionResponse {
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
-  // Check if we have a verification code in the URL
   const url = new URL(request.url);
   const code = url.searchParams.get("code");
 
+  console.log("🔍 Reset Password Loader - Code:", code);
+
+  // If we have a code, exchange it for a session
   if (code) {
     try {
-      // Exchange the code for a session
-      const { error } = await supabase.auth.exchangeCodeForSession(code);
+      console.log("🔄 Exchanging code for session...");
+      const { data, error } = await supabase.auth.exchangeCodeForSession(code);
 
       if (error) {
-        console.error("Error exchanging code for session:", error);
-        // Redirect to reset-password with error
-        return redirect("/auth/reset-password?error=invalid_code");
-      } else {
-        // Successfully exchanged code, redirect to reset-password without code
-        return redirect("/auth/reset-password");
+        console.error("❌ Error exchanging code:", error);
+        return { error: "invalid_code" };
       }
+
+      console.log("✅ Code exchanged successfully, user:", data.user?.email);
+      // Return the session data to maintain it
+      return {
+        hasValidSession: true,
+        user: data.user,
+      };
     } catch (error) {
-      console.error("Error in loader:", error);
-      return redirect("/auth/reset-password?error=exchange_failed");
+      console.error("❌ Error in loader:", error);
+      return { error: "exchange_failed" };
     }
   }
 
-  return null;
+  // Check if we have a valid session
+  const {
+    data: { session },
+    error: sessionError,
+  } = await supabase.auth.getSession();
+  console.log("🔍 Session check:", { hasSession: !!session, sessionError });
+
+  if (session) {
+    console.log("✅ Valid session found for user:", session.user.email);
+    return {
+      hasValidSession: true,
+      user: session.user,
+    };
+  }
+
+  return { hasValidSession: false };
 };
 
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
   const password = formData.get("password") as string;
   const confirmPassword = formData.get("confirmPassword") as string;
+
+  console.log("🔄 Reset Password Action triggered");
 
   // Validation
   if (!password || !confirmPassword) {
@@ -77,21 +99,36 @@ export const action: ActionFunction = async ({ request }) => {
       error: userError,
     } = await supabase.auth.getUser();
 
-    if (userError || !user) {
+    console.log("🔍 User in action:", user ? user.email : "No user");
+    console.log("🔍 User error in action:", userError);
+
+    if (userError) {
+      console.error("❌ getUser error:", userError);
+      throw new Error("Authentication error. Please try again.");
+    }
+
+    if (!user) {
       throw new Error(
         "Your reset link has expired or is invalid. Please request a new password reset."
       );
     }
 
     // Update the user's password
-    const { error } = await supabase.auth.updateUser({
+    console.log("🔄 Updating user password...");
+    const { error: updateError } = await supabase.auth.updateUser({
       password: password,
     });
 
-    if (error) throw error;
+    if (updateError) {
+      console.error("❌ Error updating password:", updateError);
+      throw updateError;
+    }
+
+    console.log("✅ Password updated successfully");
 
     // Sign out the user after password reset
     await supabase.auth.signOut();
+    console.log("✅ User signed out after password reset");
 
     return {
       success: true,
@@ -101,6 +138,7 @@ export const action: ActionFunction = async ({ request }) => {
   } catch (error: unknown) {
     const errorMessage =
       error instanceof Error ? error.message : "An unknown error occurred";
+    console.error("❌ Action error:", errorMessage);
     return {
       success: false,
       error: errorMessage,
@@ -109,6 +147,9 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 export default function ResetPasswordRoute() {
+  const loaderData = useActionData() as
+    | { hasValidSession?: boolean; error?: string }
+    | undefined;
   const actionData = useActionData() as ActionResponse | undefined;
   const navigation = useNavigation();
   const [searchParams] = useSearchParams();
@@ -119,22 +160,73 @@ export default function ResetPasswordRoute() {
   const [isReady, setIsReady] = useState(false);
   const [hasSession, setHasSession] = useState(false);
 
-  const error = searchParams.get("error");
+  const code = searchParams.get("code");
 
   useEffect(() => {
-    const checkSession = async () => {
+    const checkAuth = async () => {
+      console.log("🔍 Client-side session check...");
+
+      // First, check if we have loader data with session
+      if (loaderData?.hasValidSession) {
+        console.log("✅ Session from loader data");
+        setHasSession(true);
+        setIsReady(true);
+        return;
+      }
+
+      // If we have a code in URL but no session from loader, try to process it client-side
+      if (code && !hasSession) {
+        console.log("🔄 Processing code client-side...");
+        try {
+          const { data, error } =
+            await supabase.auth.exchangeCodeForSession(code);
+          if (error) {
+            console.error("❌ Client-side code exchange failed:", error);
+          } else {
+            console.log("✅ Client-side code exchange successful");
+            setHasSession(true);
+            setIsReady(true);
+
+            // Remove code from URL without reloading
+            const newUrl = new URL(window.location.href);
+            newUrl.searchParams.delete("code");
+            window.history.replaceState({}, "", newUrl.toString());
+            return;
+          }
+        } catch (error) {
+          console.error("❌ Client-side code exchange error:", error);
+        }
+      }
+
+      // Final session check
       const {
         data: { session },
       } = await supabase.auth.getSession();
+      console.log("🔍 Final session check:", !!session);
       setHasSession(!!session);
       setIsReady(true);
     };
 
-    checkSession();
-  }, []);
+    checkAuth();
+  }, [code, loaderData]);
 
-  // If we have an error parameter, show error
-  if (error) {
+  // Show loading while processing
+  if (!isReady) {
+    return (
+      <div className="signup-container">
+        <div className="signup-card">
+          <div className="signup-header">
+            <div className="coffee-icon">⏳</div>
+            <h1>Processing Reset Link</h1>
+            <p>Please wait while we verify your reset link...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Show error if we have loader error
+  if (loaderData?.error) {
     return (
       <div className="signup-container">
         <div className="signup-card">
@@ -144,31 +236,17 @@ export default function ResetPasswordRoute() {
             <p>There was a problem with your reset link</p>
           </div>
           <div className="error-message">
-            {error === "invalid_code" &&
+            {loaderData.error === "invalid_code" &&
               "The reset link is invalid or has expired."}
-            {error === "exchange_failed" && "Failed to process the reset link."}
-            {!["invalid_code", "exchange_failed"].includes(error) &&
+            {loaderData.error === "exchange_failed" &&
+              "Failed to process the reset link."}
+            {!["invalid_code", "exchange_failed"].includes(loaderData.error) &&
               "An unknown error occurred."}
             <div className="mt-3 text-center">
               <a href="/auth/forgot-password" className="login-link">
                 Request a new reset link
               </a>
             </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  // Show loading state while checking session
-  if (!isReady) {
-    return (
-      <div className="signup-container">
-        <div className="signup-card">
-          <div className="signup-header">
-            <div className="coffee-icon">⏳</div>
-            <h1>Loading...</h1>
-            <p>Please wait while we verify your session...</p>
           </div>
         </div>
       </div>
@@ -188,6 +266,20 @@ export default function ResetPasswordRoute() {
           <div className="error-message">
             ❌ Invalid or expired reset link. Please request a new password
             reset.
+            <div
+              style={{ marginTop: "1rem", fontSize: "0.9rem", color: "#666" }}
+            >
+              <p>Debug info:</p>
+              <ul style={{ textAlign: "left", marginLeft: "1rem" }}>
+                <li>Code in URL: {code ? "Yes" : "No"}</li>
+                <li>Has Session: No</li>
+                <li>Loader Error: {loaderData?.error || "None"}</li>
+                <li>
+                  If code exists but no session, check browser console for
+                  errors
+                </li>
+              </ul>
+            </div>
             <div className="mt-3 text-center">
               <a href="/auth/forgot-password" className="login-link">
                 Request New Reset Link
@@ -196,6 +288,10 @@ export default function ResetPasswordRoute() {
           </div>
         ) : (
           <>
+            <div className="success-message" style={{ marginBottom: "20px" }}>
+              ✅ Reset link verified! You can now set your new password.
+            </div>
+
             <Form method="post" className="signup-form">
               <div className="form-group">
                 <label htmlFor="password" className="form-label">
@@ -205,7 +301,7 @@ export default function ResetPasswordRoute() {
                   type="password"
                   id="password"
                   name="password"
-                  placeholder="Enter new password"
+                  placeholder="Enter new password (min. 6 characters)"
                   required
                   disabled={isSubmitting}
                   className="form-input"
