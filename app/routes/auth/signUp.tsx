@@ -95,9 +95,9 @@ export default function Signup() {
       <section className="relative h-screen flex items-center justify-center">
         {/* Background Image */}
         <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-80"
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat "
           style={{
-            backgroundImage: "url('/quiz.jpg')",
+            backgroundImage: "url('/auth.jpg')",
           }}
         ></div>
         <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">

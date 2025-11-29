@@ -178,174 +178,192 @@ export default function ResetPasswordRoute() {
   };
 
   return (
-    <div className="signup-container">
-      <div className="signup-card">
-        <div className="signup-header">
-          <div className="coffee-icon">🔄</div>
-          <h1>Set New Password</h1>
-          <p>Create a new password for your account</p>
+    <>
+      <section className="relative h-screen flex items-center justify-center">
+        {/* Background Image */}
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat "
+          style={{
+            backgroundImage: "url('/auth.jpg')",
+          }}
+        ></div>
+        <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
+          <h3 className="mrs-saint-delafield-regular text-5xl md:text-7xl font-bold mb-6">
+            Password Reset
+          </h3>
+          <p className="text-lg md:text-xl opacity-90 max-w-2xl mx-auto leading-relaxed">
+            Please create a new password for your account security
+          </p>
         </div>
-
-        {/* Show loading while processing code */}
-        {processingCode && (
-          <div className="success-message">
-            <div className="coffee-icon">⏳</div>
-            <h3>Verifying Reset Link</h3>
-            <p>Please wait while we verify your reset link...</p>
+      </section>
+      <div className="signup-container">
+        <div className="signup-card">
+          <div className="signup-header">
+            <div className="coffee-icon">🔄</div>
+            <h1>Set New Password</h1>
+            <p>Create a new password for your account</p>
           </div>
-        )}
 
-        {/* Show error message */}
-        {errorMessage && !processingCode && (
-          <div className="error-message">
-            ❌ {errorMessage}
-            <div className="mt-3 text-center">
-              <a href="/auth/forgot-password" className="login-link">
-                Request a new reset link
-              </a>
+          {/* Show loading while processing code */}
+          {processingCode && (
+            <div className="success-message">
+              <div className="coffee-icon">⏳</div>
+              <h3>Verifying Reset Link</h3>
+              <p>Please wait while we verify your reset link...</p>
             </div>
-          </div>
-        )}
+          )}
 
-        {/* Show no session error */}
-        {!hasSession && !errorMessage && !processingCode && isReady && (
-          <div className="error-message">
-            ❌ No active session found.
-            <div
-              style={{
-                marginTop: "1rem",
-                fontSize: "0.9rem",
-                color: "#666",
-              }}
-            >
-              <p>Please click the reset link in your email to continue.</p>
-              <ul style={{ textAlign: "left", marginLeft: "1rem" }}>
-                <li>Make sure you're using the same browser</li>
-                <li>Check that the link hasn't expired</li>
-                <li>Ensure cookies are enabled</li>
-              </ul>
-            </div>
-            <div className="mt-3 text-center">
-              <a href="/auth/forgot-password" className="login-link">
-                Request New Reset Link
-              </a>
-            </div>
-          </div>
-        )}
-
-        {/* Show password form when ready and has session */}
-        {hasSession && isReady && !processingCode && (
-          <>
-            <div className="success-message" style={{ marginBottom: "20px" }}>
-              ✅ Reset link verified for <strong>{userEmail}</strong>! You can
-              now set your new password.
-            </div>
-
-            {resetStatus?.success ? (
-              <div className="success-message">
-                ✅ {resetStatus.message}
-                <div className="mt-3 text-center">
-                  <a href="/auth/login" className="login-link">
-                    Sign in with your new password
-                  </a>
-                </div>
+          {/* Show error message */}
+          {errorMessage && !processingCode && (
+            <div className="error-message">
+              ❌ {errorMessage}
+              <div className="mt-3 text-center">
+                <a href="/auth/forgot-password" className="login-link">
+                  Request a new reset link
+                </a>
               </div>
-            ) : (
-              <form onSubmit={handleClientSideReset} className="signup-form">
-                <div className="form-group">
-                  <label htmlFor="password" className="form-label">
-                    New Password
-                  </label>
-                  <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    placeholder="Enter new password (min. 6 characters)"
-                    required
-                    disabled={isSubmitting}
-                    className="form-input"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    minLength={6}
-                  />
+            </div>
+          )}
+
+          {/* Show no session error */}
+          {!hasSession && !errorMessage && !processingCode && isReady && (
+            <div className="error-message">
+              ❌ No active session found.
+              <div
+                style={{
+                  marginTop: "1rem",
+                  fontSize: "0.9rem",
+                  color: "#666",
+                }}
+              >
+                <p>Please click the reset link in your email to continue.</p>
+                <ul style={{ textAlign: "left", marginLeft: "1rem" }}>
+                  <li>Make sure you're using the same browser</li>
+                  <li>Check that the link hasn't expired</li>
+                  <li>Ensure cookies are enabled</li>
+                </ul>
+              </div>
+              <div className="mt-3 text-center">
+                <a href="/auth/forgot-password" className="login-link">
+                  Request New Reset Link
+                </a>
+              </div>
+            </div>
+          )}
+
+          {/* Show password form when ready and has session */}
+          {hasSession && isReady && !processingCode && (
+            <>
+              <div className="success-message" style={{ marginBottom: "20px" }}>
+                ✅ Reset link verified for <strong>{userEmail}</strong>! You can
+                now set your new password.
+              </div>
+
+              {resetStatus?.success ? (
+                <div className="success-message">
+                  ✅ {resetStatus.message}
+                  <div className="mt-3 text-center">
+                    <a href="/auth/login" className="login-link">
+                      Sign in with your new password
+                    </a>
+                  </div>
                 </div>
+              ) : (
+                <form onSubmit={handleClientSideReset} className="signup-form">
+                  <div className="form-group">
+                    <label htmlFor="password" className="form-label">
+                      New Password
+                    </label>
+                    <input
+                      type="password"
+                      id="password"
+                      name="password"
+                      placeholder="Enter new password (min. 6 characters)"
+                      required
+                      disabled={isSubmitting}
+                      className="form-input"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      minLength={6}
+                    />
+                  </div>
 
-                <div className="form-group">
-                  <label htmlFor="confirmPassword" className="form-label">
-                    Confirm New Password
-                  </label>
-                  <input
-                    type="password"
-                    id="confirmPassword"
-                    name="confirmPassword"
-                    placeholder="Confirm new password"
-                    required
-                    disabled={isSubmitting}
-                    className="form-input"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    minLength={6}
-                  />
-                </div>
+                  <div className="form-group">
+                    <label htmlFor="confirmPassword" className="form-label">
+                      Confirm New Password
+                    </label>
+                    <input
+                      type="password"
+                      id="confirmPassword"
+                      name="confirmPassword"
+                      placeholder="Confirm new password"
+                      required
+                      disabled={isSubmitting}
+                      className="form-input"
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                      minLength={6}
+                    />
+                  </div>
 
-                <button
-                  type="submit"
-                  disabled={isSubmitting || !password || !confirmPassword}
-                  className="submit-button"
-                >
-                  {isSubmitting ? "Resetting Password..." : "Reset Password"}
-                </button>
-              </form>
-            )}
-
-            {resetStatus?.error && !resetStatus.success && (
-              <div className="error-message">
-                ❌ {resetStatus.error}
-                <div className="mt-3 text-center">
                   <button
-                    onClick={() => setResetStatus(null)}
-                    className="login-link"
-                    style={{
-                      background: "none",
-                      border: "none",
-                      cursor: "pointer",
-                      fontSize: "inherit",
-                    }}
+                    type="submit"
+                    disabled={isSubmitting || !password || !confirmPassword}
+                    className="submit-button"
                   >
-                    Try again
+                    {isSubmitting ? "Resetting Password..." : "Reset Password"}
                   </button>
+                </form>
+              )}
+
+              {resetStatus?.error && !resetStatus.success && (
+                <div className="error-message">
+                  ❌ {resetStatus.error}
+                  <div className="mt-3 text-center">
+                    <button
+                      onClick={() => setResetStatus(null)}
+                      className="login-link"
+                      style={{
+                        background: "none",
+                        border: "none",
+                        cursor: "pointer",
+                        fontSize: "inherit",
+                      }}
+                    >
+                      Try again
+                    </button>
+                  </div>
                 </div>
-              </div>
-            )}
-          </>
-        )}
+              )}
+            </>
+          )}
 
-        {/* Show loading while initializing */}
-        {!isReady && !processingCode && (
-          <div className="success-message">
-            <div className="coffee-icon">⏳</div>
-            <h3>Loading...</h3>
-            <p>Please wait while we check your authentication...</p>
+          {/* Show loading while initializing */}
+          {!isReady && !processingCode && (
+            <div className="success-message">
+              <div className="coffee-icon">⏳</div>
+              <h3>Loading...</h3>
+              <p>Please wait while we check your authentication...</p>
+            </div>
+          )}
+
+          <div className="signup-footer">
+            <p>
+              Remember your password?{" "}
+              <a href="/auth/login" className="login-link">
+                Back to Sign In
+              </a>
+            </p>
+            <p className="mt-2">
+              Need a new reset link?{" "}
+              <a href="/auth/forgot-password" className="login-link">
+                Request Password Reset
+              </a>
+            </p>
           </div>
-        )}
-
-        <div className="signup-footer">
-          <p>
-            Remember your password?{" "}
-            <a href="/auth/login" className="login-link">
-              Back to Sign In
-            </a>
-          </p>
-          <p className="mt-2">
-            Need a new reset link?{" "}
-            <a href="/auth/forgot-password" className="login-link">
-              Request Password Reset
-            </a>
-          </p>
         </div>
-      </div>
 
-      <style>{`
+        <style>{`
         .form-label {
           color: #5D4037;
           font-weight: 500;
@@ -518,6 +536,7 @@ export default function ResetPasswordRoute() {
           }
         }
       `}</style>
-    </div>
+      </div>
+    </>
   );
 }
