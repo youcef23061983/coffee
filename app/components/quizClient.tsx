@@ -891,7 +891,7 @@ export default function CoffeeQuizPage() {
           </motion.p>
         </div>
       </section>
-      <div className="min-h-screen bg-gradient-to-br from-orange-50 to-amber-100 py-8">
+      <div className="min-h-screen bg-linear-to-br from-orange-50 to-amber-100 py-8">
         <div className="max-w-2xl mx-auto px-4">
           {/* Loading Overlay */}
           {loading && (

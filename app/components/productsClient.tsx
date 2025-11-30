@@ -434,7 +434,7 @@ const ProductsClient = () => {
 
       <section
         ref={searchSectionRef}
-        className="py-12 bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100 border-b border-amber-200"
+        className="py-12 bg-linear-to-br from-amber-50 via-orange-50 to-amber-100 border-b border-amber-200"
       >
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
@@ -442,7 +442,7 @@ const ProductsClient = () => {
             <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-8 gap-4">
               <div>
                 <motion.h2
-                  className="text-3xl font-bold bg-gradient-to-r from-amber-700 to-orange-700 bg-clip-text text-transparent"
+                  className="text-3xl font-bold bg-linear-to-r from-amber-700 to-orange-700 bg-clip-text text-transparent"
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.5 }}
@@ -469,7 +469,7 @@ const ProductsClient = () => {
               {(searchQuery || filters.productType || filters.priceRange) && (
                 <motion.button
                   onClick={clearAllFilters}
-                  className="px-6 py-3 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 active:scale-95"
+                  className="px-6 py-3 bg-linear-to-r from-amber-500 to-orange-500 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 active:scale-95"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >

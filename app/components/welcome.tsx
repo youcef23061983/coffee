@@ -1,14 +1,16 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router";
 import TestimonialsSection from "~/components/TestimonialsSection";
+import { ClientOnly } from "./ClientOnly";
+import RealCoffeeCategories, {
+  CategoriesLoadingSkeleton,
+} from "./RealCoffeeCategories";
+
 interface WelcomeProps {
   data: any[]; // or use a more specific type
   brands?: any[]; // make it optional if needed
 }
-// interface Products {
-//   data: any[]; // or use a more specific type
-//   brands?: any[]; // make it optional if needed
-// }
+
 export function Welcome({ data, brands }: WelcomeProps) {
   console.log("data:", data);
   const navigate = useNavigate();
@@ -241,7 +243,7 @@ export function Welcome({ data, brands }: WelcomeProps) {
           </div>
         </div>
       </section>
-      {/* <section className="py-20 bg-[#d1c0a3]"> */}
+
       <section
         className="w-full py-20 relative bg-cover bg-center bg-no-repeat min-h-screen contain-content flex justify-center items-center"
         style={{ backgroundImage: "url('/4.jpg')" }}
@@ -256,51 +258,9 @@ export function Welcome({ data, brands }: WelcomeProps) {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            {[
-              {
-                name: "Single-Origin",
-                count: "150+",
-                color: "from-blue-500 to-blue-600",
-              },
-              {
-                name: "Espresso Blends",
-                count: "80+",
-                color: "from-red-500 to-red-600",
-              },
-              {
-                name: "Subscription Boxes",
-                count: "25+",
-                color: "from-green-500 to-green-600",
-              },
-              {
-                name: "Decaf Options",
-                count: "40+",
-                color: "from-purple-500 to-purple-600",
-              },
-              {
-                name: "Cold Brew",
-                count: "35+",
-                color: "from-cyan-500 to-cyan-600",
-              },
-              {
-                name: "Tea & Wellness",
-                count: "60+",
-                color: "from-emerald-500 to-emerald-600",
-              },
-            ].map((category, index) => (
-              <motion.div
-                key={category.name}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.3, delay: index * 0.1 }}
-                className={`bg-linear-to-br ${category.color} text-white rounded-xl p-6 text-center cursor-pointer hover:scale-105 transition-transform shadow-lg`}
-              >
-                <h3 className="font-bold text-lg mb-2">{category.name}</h3>
-                <p className="text-sm opacity-90">{category.count}</p>
-              </motion.div>
-            ))}
-          </div>
+          <ClientOnly fallback={<CategoriesLoadingSkeleton />}>
+            <RealCoffeeCategories />
+          </ClientOnly>
         </div>
       </section>
       <section className="py-20 bg-[#E5E4DF]">
@@ -317,7 +277,6 @@ export function Welcome({ data, brands }: WelcomeProps) {
           <TestimonialsSection />
         </div>
       </section>
-      {/* <section className="py-20 bg-white"> */}
       <section
         className="w-full py-20 relative bg-cover bg-center bg-no-repeat min-h-screen contain-content flex justify-center items-center"
         style={{ backgroundImage: "url('/back.jpg')" }}
@@ -380,6 +339,7 @@ export function Welcome({ data, brands }: WelcomeProps) {
           </div>
         </div>
       </section>
+
       <section className="py-20 bg-linear-to-br from-[#8B4513] to-[#6B3410] text-white">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <motion.h2

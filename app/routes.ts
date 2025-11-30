@@ -29,6 +29,9 @@ export default [
     route("auth/reset-password", "routes/auth/reset-password.tsx"),
     route("auth/callback", "routes/auth.callback.tsx"),
     route("order-success", "routes/order-success.tsx"),
+    route("ai", "routes/ai.tsx"),
+    route("api/generate-blog", "routes/api.generate-blog.ts"),
+    route("api/openrouter", "routes/api.openrouter.ts"),
 
     // ✅ ADD ALL YOUR API ROUTES
     route("api/create-payment-intent", "routes/api.create-payment-intent.ts"),
