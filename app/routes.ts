@@ -27,7 +27,6 @@ export default [
     route("payment", "routes/payment.tsx"),
     route("auth/forgot-password", "routes/auth/forgot-password.tsx"),
     route("auth/reset-password", "routes/auth/reset-password.tsx"),
-    route("auth/callback", "routes/auth.callback.tsx"),
     route("order-success", "routes/order-success.tsx"),
     route("ai", "routes/ai.tsx"),
     route("api/generate-blog", "routes/api.generate-blog.ts"),
