@@ -250,7 +250,7 @@
 //     </>
 //   );
 // }
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useFetcher } from "react-router";
 import { motion } from "framer-motion";
 import type { Variants } from "framer-motion"; // Type-only import
@@ -435,6 +435,8 @@ const itemVariants: Variants = {
 };
 
 export default function DeepseekBlogGenerator() {
+  const resultsRef = useRef<HTMLDivElement>(null);
+
   const [topic, setTopic] = useState("");
   const [generatedPost, setGeneratedPost] = useState<GeneratedPost | null>(
     null
@@ -453,6 +455,16 @@ export default function DeepseekBlogGenerator() {
       if (fetcher.data.success) {
         setGeneratedPost(fetcher.data.blog);
         setError(null);
+
+        setTimeout(() => {
+          if (resultsRef.current) {
+            const y = resultsRef.current.getBoundingClientRect().top;
+            window.scrollTo({
+              top: y,
+              behavior: "smooth",
+            });
+          }
+        }, 100);
       } else {
         setError(fetcher.data.message || "Failed to generate blog post");
         setGeneratedPost(null);
@@ -657,6 +669,7 @@ ${generatedPost.content}
         {/* Enhanced Results Animation */}
         {generatedPost && (
           <motion.div
+            ref={resultsRef}
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, type: "spring", stiffness: 100 }}
