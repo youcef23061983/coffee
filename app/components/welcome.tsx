@@ -5,10 +5,30 @@ import { ClientOnly } from "./ClientOnly";
 import RealCoffeeCategories, {
   CategoriesLoadingSkeleton,
 } from "./RealCoffeeCategories";
-import FetchNewsAPIArticles from "./FetchnewsAPIArticles";
+// import FetchNewsAPIArticles from "./FetchnewsAPIArticles";
 interface WelcomeProps {
   data: any[]; // or use a more specific type
   brands?: any[]; // make it optional if needed
+}
+import { lazy, Suspense } from "react";
+
+const FetchNewsAPIArticles = lazy(() => import("./FetchnewsAPIArticles"));
+
+function NewsSection() {
+  return (
+    <Suspense
+      fallback={
+        <section className="w-full py-20 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4 text-center">
+            <h2 className="text-3xl font-bold mb-4">Coffee Articles</h2>
+            <p>Loading...</p>
+          </div>
+        </section>
+      }
+    >
+      <FetchNewsAPIArticles />
+    </Suspense>
+  );
 }
 export function Welcome({ data, brands }: WelcomeProps) {
   console.log("data:", data);
@@ -95,7 +115,6 @@ export function Welcome({ data, brands }: WelcomeProps) {
           </motion.div>
         </div>
       </section>
-
       <section
         className="w-full py-20 relative bg-cover bg-center bg-no-repeat min-h-screen contain-content flex justify-center items-center"
         style={{ backgroundImage: "url('/2.jpg')" }}
@@ -245,7 +264,6 @@ export function Welcome({ data, brands }: WelcomeProps) {
           </div>
         </div>
       </section>
-
       <section
         className="w-full py-20 relative bg-cover bg-center bg-no-repeat min-h-screen contain-content flex justify-center items-center"
         style={{ backgroundImage: "url('/4.jpg')" }}
@@ -279,9 +297,21 @@ export function Welcome({ data, brands }: WelcomeProps) {
           <TestimonialsSection />
         </div>
       </section>
-
-      <FetchNewsAPIArticles />
-
+      {/* <FetchNewsAPIArticles /> */}
+      {/* <NewsSection /> */}
+      <section className="w-full py-20 bg-gradient-to-r from-amber-50 to-orange-50">
+        <div className="max-w-4xl mx-auto px-4 text-center">
+          <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            Coffee Articles & Guides
+          </h2>
+          <p className="text-xl text-gray-600 mb-8">
+            Stay tuned for expert brewing tips and equipment reviews!
+          </p>
+          <div className="inline-block bg-white rounded-xl px-6 py-4 shadow-md">
+            <p className="text-gray-700">Content coming soon...</p>
+          </div>
+        </div>
+      </section>
       <section className="py-20 bg-linear-to-br from-[#8B4513] to-[#6B3410] text-white">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <motion.h2
