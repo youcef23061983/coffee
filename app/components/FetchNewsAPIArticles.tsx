@@ -1,4 +1,4 @@
-//////////////////////////////////// when we use https://newsapi.org/\\\\\\\\\\\\\\\\\\\\\\\\\\\
+////////////////////////////////////// when we use https://newsapi.org/\\\\\\\\\\\\\\\\\\\\\\\\\\\
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 

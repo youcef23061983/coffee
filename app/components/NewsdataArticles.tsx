@@ -37,6 +37,14 @@ const NewsdataArticles = () => {
           window.scrollTo({ top: y, behavior: "smooth" });
         }
       }, 150);
+    } else {
+      setTimeout(() => {
+        // Scroll up a bit to keep the button in view
+        window.scrollBy({
+          top: -300,
+          behavior: "smooth",
+        });
+      }, 50);
     }
   };
 
