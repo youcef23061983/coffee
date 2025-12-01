@@ -5,7 +5,7 @@ import { ClientOnly } from "./ClientOnly";
 import RealCoffeeCategories, {
   CategoriesLoadingSkeleton,
 } from "./RealCoffeeCategories";
-import FetchNewsAPIArticles from "./FetchnewsAPIArticles";
+// import FetchNewsAPIArticles from "./FetchnewsAPIArticles";
 interface WelcomeProps {
   data: any[]; // or use a more specific type
   brands?: any[]; // make it optional if needed
