@@ -261,9 +261,9 @@ export function Welcome({ data, brands }: WelcomeProps) {
             </p>
           </div>
 
-          <ClientOnly fallback={<CategoriesLoadingSkeleton />}>
-            <RealCoffeeCategories />
-          </ClientOnly>
+          {/* <ClientOnly fallback={<CategoriesLoadingSkeleton />}> */}
+          <RealCoffeeCategories />
+          {/* </ClientOnly> */}
         </div>
       </section>
       <section className="py-20 bg-[#E5E4DF]">
