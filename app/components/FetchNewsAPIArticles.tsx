@@ -12,7 +12,7 @@ interface CoffeeArticle {
 }
 
 // REMOVED "async" from function name - this was the problem!
-export default function CoffeeArticlesSection() {
+export default function FetchNewsAPIArticles() {
   const [articles, setArticles] = useState<CoffeeArticle[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

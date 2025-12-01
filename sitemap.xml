@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Static Pages -->
+  <url>
+    <loc>https://coffee-khaki-seven.vercel.app/</loc>
+    <lastmod>2025-12-01T14:48:07.511Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://coffee-khaki-seven.vercel.app/products</loc>
+    <lastmod>2025-12-01T14:48:07.511Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://coffee-khaki-seven.vercel.app/quiz</loc>
+    <lastmod>2025-12-01T14:48:07.511Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://coffee-khaki-seven.vercel.app/results</loc>
+    <lastmod>2025-12-01T14:48:07.511Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://coffee-khaki-seven.vercel.app/testimonials</loc>
+    <lastmod>2025-12-01T14:48:07.511Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://coffee-khaki-seven.vercel.app/about</loc>
+    <lastmod>2025-12-01T14:48:07.511Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://coffee-khaki-seven.vercel.app/contact</loc>
+    <lastmod>2025-12-01T14:48:07.511Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <!-- Auth Pages -->
+  <url>
+    <loc>https://coffee-khaki-seven.vercel.app/auth/signup</loc>
+    <lastmod>2025-12-01T14:48:07.511Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://coffee-khaki-seven.vercel.app/auth/login</loc>
+    <lastmod>2025-12-01T14:48:07.511Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://coffee-khaki-seven.vercel.app/auth/forgot-password</loc>
+    <lastmod>2025-12-01T14:48:07.511Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  
+  <!-- Protected/User Pages -->
+  <url>
+    <loc>https://coffee-khaki-seven.vercel.app/addTestimonial</loc>
+    <lastmod>2025-12-01T14:48:07.511Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://coffee-khaki-seven.vercel.app/dashboard</loc>
+    <lastmod>2025-12-01T14:48:07.511Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://coffee-khaki-seven.vercel.app/cart</loc>
+    <lastmod>2025-12-01T14:48:07.511Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <!-- Checkout Flow -->
+  <url>
+    <loc>https://coffee-khaki-seven.vercel.app/shipping</loc>
+    <lastmod>2025-12-01T14:48:07.511Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://coffee-khaki-seven.vercel.app/payment</loc>
+    <lastmod>2025-12-01T14:48:07.511Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://coffee-khaki-seven.vercel.app/order-success</loc>
+    <lastmod>2025-12-01T14:48:07.511Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  
+  <!-- Brand Pages -->
+  
+    <url>
+      <loc>https://coffee-khaki-seven.vercel.app/1ac46e29-9c06-4351-aa6c-27bd8e9647dd</loc>
+      <lastmod>2025-10-13T13:20:55.500Z</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.8</priority>
+    </url>
+  
+    <url>
+      <loc>https://coffee-khaki-seven.vercel.app/3f92d9c8-d430-409d-8c25-99c0909cfec4</loc>
+      <lastmod>2025-10-13T13:20:55.500Z</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.8</priority>
+    </url>
+  
+    <url>
+      <loc>https://coffee-khaki-seven.vercel.app/4423e16b-2964-4e2b-882a-975efc462f4c</loc>
+      <lastmod>2025-10-13T13:20:55.500Z</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.8</priority>
+    </url>
+  
+    <url>
+      <loc>https://coffee-khaki-seven.vercel.app/52b0883f-51ec-45ad-911f-d25b768912c9</loc>
+      <lastmod>2025-10-13T13:20:55.500Z</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.8</priority>
+    </url>
+  
+    <url>
+      <loc>https://coffee-khaki-seven.vercel.app/5d547ffe-f60d-451c-a6c1-721074079e7f</loc>
+      <lastmod>2025-10-13T13:20:55.500Z</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.8</priority>
+    </url>
+  
+    <url>
+      <loc>https://coffee-khaki-seven.vercel.app/6df09384-2bef-44f3-8443-601a96886ca8</loc>
+      <lastmod>2025-10-13T13:20:55.500Z</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.8</priority>
+    </url>
+  
+    <url>
+      <loc>https://coffee-khaki-seven.vercel.app/7265618b-9887-4d6f-a43b-16ebd8f92d3a</loc>
+      <lastmod>2025-10-13T13:20:55.500Z</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.8</priority>
+    </url>
+  
+    <url>
+      <loc>https://coffee-khaki-seven.vercel.app/81cf5c2f-6d82-4a2e-9167-37969fdb73be</loc>
+      <lastmod>2025-10-13T13:20:55.500Z</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.8</priority>
+    </url>
+  
+    <url>
+      <loc>https://coffee-khaki-seven.vercel.app/a63f8e16-65ec-4e2d-a8d7-ccb14bf8fcb3</loc>
+      <lastmod>2025-10-13T13:20:55.500Z</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.8</priority>
+    </url>
+  
+    <url>
+      <loc>https://coffee-khaki-seven.vercel.app/ae75666a-1ee3-4a1c-b49a-4eb1ea203c5e</loc>
+      <lastmod>2025-10-13T13:20:55.500Z</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.8</priority>
+    </url>
+  
+    <url>
+      <loc>https://coffee-khaki-seven.vercel.app/c43bb3f1-4d28-45b3-91d4-c4354c86b195</loc>
+      <lastmod>2025-10-13T13:20:55.500Z</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.8</priority>
+    </url>
+  
+</urlset>

@@ -5,13 +5,20 @@ export async function loader() {
   // Remove the .eq('active', true) filter since the column doesn't exist
   const { data: brands, error } = await supabase
     .from("brands")
-    .select("id, updated_at, name");
+    .select("id, updated_at, name")
+    .limit(490);
 
   if (error) {
     console.error("Error fetching brands:", error);
     // Still return a basic sitemap without brands
   }
+  const brandCount = brands?.length || 0;
+  const staticPagesCount = 10; // Your static pages
+  const totalUrls = brandCount + staticPagesCount;
 
+  console.log(
+    `Sitemap stats: ${brandCount} brands + ${staticPagesCount} static = ${totalUrls} total URLs`
+  );
   const baseUrl = "https://coffee-khaki-seven.vercel.app";
   const currentDate = new Date().toISOString();
 
