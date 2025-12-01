@@ -279,8 +279,9 @@ export function Welcome({ data, brands }: WelcomeProps) {
           <TestimonialsSection />
         </div>
       </section>
-
-      <FetchNewsAPIArticles />
+      <ClientOnly fallback={<CategoriesLoadingSkeleton />}>
+        <FetchNewsAPIArticles />
+      </ClientOnly>
 
       <section className="py-20 bg-linear-to-br from-[#8B4513] to-[#6B3410] text-white">
         <div className="max-w-4xl mx-auto px-4 text-center">
