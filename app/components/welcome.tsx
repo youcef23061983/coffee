@@ -1,16 +1,12 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router";
 import TestimonialsSection from "~/components/TestimonialsSection";
-import { ClientOnly } from "./ClientOnly";
-import RealCoffeeCategories, {
-  CategoriesLoadingSkeleton,
-} from "./RealCoffeeCategories";
+import RealCoffeeCategories from "./RealCoffeeCategories";
 import NewsdataArticles from "./NewsdataArticles";
-// import TestAtricles from "./TestAtricles";
-// import FetchNewsAPIArticles from "./FetchnewsAPIArticles";
+
 interface WelcomeProps {
-  data: any[]; // or use a more specific type
-  brands?: any[]; // make it optional if needed
+  data: any[];
+  brands?: any[];
 }
 export function Welcome({ data, brands }: WelcomeProps) {
   console.log("data:", data);
@@ -262,9 +258,7 @@ export function Welcome({ data, brands }: WelcomeProps) {
             </p>
           </div>
 
-          {/* <ClientOnly fallback={<CategoriesLoadingSkeleton />}> */}
           <RealCoffeeCategories />
-          {/* </ClientOnly> */}
         </div>
       </section>
       <section className="py-20 bg-[#E5E4DF]">
@@ -282,8 +276,6 @@ export function Welcome({ data, brands }: WelcomeProps) {
         </div>
       </section>
 
-      {/* <FetchNewsAPIArticles /> */}
-      {/* <TestAtricles /> */}
       <NewsdataArticles />
 
       <section className="py-20 bg-linear-to-br from-[#8B4513] to-[#6B3410] text-white">
