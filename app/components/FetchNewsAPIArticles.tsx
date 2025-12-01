@@ -1462,7 +1462,6 @@
 // }
 
 // app/components/FetchnewsAPIArticles.tsx
-import { useState } from "react";
 
 export default function FetchNewsAPIArticles() {
   const articles = [
