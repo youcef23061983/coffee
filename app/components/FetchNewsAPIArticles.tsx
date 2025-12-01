@@ -663,8 +663,13 @@ export default function FetchNewsAPIArticles() {
     try {
       const apiKey = import.meta.env.VITE_NEWSDATA_API_KEY;
 
-      if (!apiKey || apiKey.includes("your_api_key")) {
-        throw new Error("NewsData API key not configured");
+      if (
+        !apiKey ||
+        apiKey === "your_api_key_here" ||
+        apiKey.includes("your_api_key")
+      ) {
+        console.log("No valid NewsData API key found, using mock data");
+        return getMockArticles(); // Return mock data immediately
       }
 
       // BETTER coffee-specific queries
