@@ -5,7 +5,7 @@ import { ClientOnly } from "./ClientOnly";
 import RealCoffeeCategories, {
   CategoriesLoadingSkeleton,
 } from "./RealCoffeeCategories";
-import FetchNewsAPIArticles from "./fetchNewsAPIArticles";
+import FetchnewsApiarticles from "./FetchNewsAPIArticles";
 
 interface WelcomeProps {
   data: any[]; // or use a more specific type
@@ -281,7 +281,7 @@ export function Welcome({ data, brands }: WelcomeProps) {
         </div>
       </section>
 
-      <FetchNewsAPIArticles />
+      <FetchnewsApiarticles />
 
       <section className="py-20 bg-linear-to-br from-[#8B4513] to-[#6B3410] text-white">
         <div className="max-w-4xl mx-auto px-4 text-center">
