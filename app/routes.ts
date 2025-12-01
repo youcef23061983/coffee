@@ -8,8 +8,9 @@ import {
 export default [
   layout("routes/__root.tsx", [
     index("routes/home.tsx"),
-    route("sitemap.xml", "routes/sitemap[.]xml.tsx"),
     route("/:brandId", "routes/brands.tsx"),
+
+    route("sitemap.xml", "routes/sitemap[.]xml.tsx"),
 
     route("products", "routes/products.tsx"),
     route("products/:id", "routes/detail.tsx"),
