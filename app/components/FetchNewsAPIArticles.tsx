@@ -207,7 +207,8 @@ export default function FetchnewsApiarticles() {
     try {
       setLoading(true);
       const response = await fetch(
-        `https://newsapi.org/v2/everything?q=(coffee+OR+espresso)+AND+(equipment+OR+grinder+OR+machine+OR+brewer+OR+accessories)&language=en&pageSize=6&apiKey=${import.meta.env.VITE_NEWSAPI_KEY}`
+        // `https://newsapi.org/v2/everything?q=(coffee+OR+espresso)+AND+(equipment+OR+grinder+OR+machine+OR+brewer+OR+accessories)&language=en&pageSize=6&apiKey=${import.meta.env.VITE_NEWSAPI_KEY}`
+        `https://newsapi.org/v2/everything?q=(coffee+OR+espresso)+AND+(equipment+OR+grinder+OR+machine+OR+brewer+OR+accessories)&language=en&pageSize=6&apiKey=c2c97e21245c403b8613575f1e24995f`
       );
       const data = await response.json();
 
