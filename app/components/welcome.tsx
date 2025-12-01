@@ -6,42 +6,9 @@ import RealCoffeeCategories, {
   CategoriesLoadingSkeleton,
 } from "./RealCoffeeCategories";
 import FetchNewsAPIArticles from "./FetchnewsAPIArticles";
-import React from "react";
 interface WelcomeProps {
   data: any[]; // or use a more specific type
   brands?: any[]; // make it optional if needed
-}
-function NewsSkeleton() {
-  return (
-    <section className="w-full py-20 relative bg-cover bg-center bg-no-repeat min-h-screen contain-content flex justify-center items-center">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="mrs-saint-delafield-regular text-4xl font-bold text-gray-200 mb-4">
-            From The Brew Guide
-          </h2>
-          <p className="text-xl text-gray-200">
-            Expert tips, brewing guides, and coffee education from top sources
-          </p>
-        </div>
-        <div className="grid md:grid-cols-3 gap-8">
-          {[1, 2, 3].map((i) => (
-            <div
-              key={i}
-              className="bg-gray-50 rounded-2xl overflow-hidden animate-pulse"
-            >
-              <div className="h-48 bg-gray-300"></div>
-              <div className="p-6">
-                <div className="h-4 bg-gray-300 rounded w-1/3 mb-4"></div>
-                <div className="h-6 bg-gray-300 rounded mb-3"></div>
-                <div className="h-4 bg-gray-300 rounded mb-2"></div>
-                <div className="h-4 bg-gray-300 rounded w-2/3"></div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
 }
 export function Welcome({ data, brands }: WelcomeProps) {
   console.log("data:", data);
@@ -54,17 +21,6 @@ export function Welcome({ data, brands }: WelcomeProps) {
         brandId,
       },
     });
-  }
-  function LazyNewsComponent() {
-    const FetchNewsAPIArticles = React.lazy(
-      () => import("./FetchnewsAPIArticles")
-    );
-
-    return (
-      <React.Suspense fallback={<NewsSkeleton />}>
-        <FetchNewsAPIArticles />
-      </React.Suspense>
-    );
   }
 
   // Helper function to determine category based on content
@@ -323,9 +279,8 @@ export function Welcome({ data, brands }: WelcomeProps) {
           <TestimonialsSection />
         </div>
       </section>
-      <ClientOnly fallback={<NewsSkeleton />}>
-        <LazyNewsComponent />
-      </ClientOnly>
+
+      <FetchNewsAPIArticles />
 
       <section className="py-20 bg-linear-to-br from-[#8B4513] to-[#6B3410] text-white">
         <div className="max-w-4xl mx-auto px-4 text-center">
