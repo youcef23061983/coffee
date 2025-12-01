@@ -212,7 +212,7 @@ export default function FetchnewsApiarticles() {
       );
       const data = await response.json();
 
-      const articlesData = data.articles.map((article: any) => ({
+      const articlesData = data?.articles?.map((article: any) => ({
         title: article.title,
         description:
           article.description || "Coffee equipment or brewing related article",
