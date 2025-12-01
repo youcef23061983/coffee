@@ -88,52 +88,10 @@ export async function loader() {
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>
-  <url>
-    <loc>${baseUrl}/auth/forgot-password</loc>
-    <lastmod>${currentDate}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.3</priority>
-  </url>
+ 
+ 
   
-  <!-- Protected/User Pages -->
-  <url>
-    <loc>${baseUrl}/addTestimonial</loc>
-    <lastmod>${currentDate}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>${baseUrl}/dashboard</loc>
-    <lastmod>${currentDate}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>${baseUrl}/cart</loc>
-    <lastmod>${currentDate}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
   
-  <!-- Checkout Flow -->
-  <url>
-    <loc>${baseUrl}/shipping</loc>
-    <lastmod>${currentDate}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.4</priority>
-  </url>
-  <url>
-    <loc>${baseUrl}/payment</loc>
-    <lastmod>${currentDate}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.4</priority>
-  </url>
-  <url>
-    <loc>${baseUrl}/order-success</loc>
-    <lastmod>${currentDate}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.3</priority>
-  </url>
   
   <!-- Brand Pages -->
   ${brandUrls}

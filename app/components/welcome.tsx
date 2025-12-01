@@ -5,12 +5,12 @@ import { ClientOnly } from "./ClientOnly";
 import RealCoffeeCategories, {
   CategoriesLoadingSkeleton,
 } from "./RealCoffeeCategories";
+import FetchNewsAPIArticles from "./fetchNewsAPIArticles";
 
 interface WelcomeProps {
   data: any[]; // or use a more specific type
   brands?: any[]; // make it optional if needed
 }
-
 export function Welcome({ data, brands }: WelcomeProps) {
   console.log("data:", data);
   const navigate = useNavigate();
@@ -23,6 +23,9 @@ export function Welcome({ data, brands }: WelcomeProps) {
       },
     });
   }
+
+  // Helper function to determine category based on content
+
   return (
     <>
       <section className="relative h-screen flex items-center justify-center  opacity-80">
@@ -277,68 +280,8 @@ export function Welcome({ data, brands }: WelcomeProps) {
           <TestimonialsSection />
         </div>
       </section>
-      <section
-        className="w-full py-20 relative bg-cover bg-center bg-no-repeat min-h-screen contain-content flex justify-center items-center"
-        style={{ backgroundImage: "url('/back.jpg')" }}
-      >
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="mrs-saint-delafield-regular text-4xl font-bold text-gray-200 mb-4">
-              From The Brew Guide
-            </h2>
-            <p className="text-xl text-gray-200">
-              Expert tips, brewing guides, and coffee education
-            </p>
-          </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                title: "How to Choose Your First Coffee Grinder",
-                image: "/blog-grinder-guide.jpg",
-                readTime: "5 min read",
-                category: "Equipment Guide",
-              },
-              {
-                title: "Understanding Coffee Roast Levels",
-                image: "/blog-roast-guide.jpg",
-                readTime: "4 min read",
-                category: "Education",
-              },
-              {
-                title: "Brewing the Perfect Pour Over at Home",
-                image: "/blog-pour-over.jpg",
-                readTime: "7 min read",
-                category: "Brewing Guide",
-              },
-            ].map((post, index) => (
-              <motion.div
-                key={post.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.2 }}
-                className="bg-gray-50 rounded-2xl overflow-hidden hover:shadow-lg transition-all cursor-pointer group"
-              >
-                <div className="h-48 bg-gray-200 group-hover:scale-105 transition-transform"></div>
-                <div className="p-6">
-                  <span className="text-sm text-[#8B4513] font-semibold">
-                    {post.category}
-                  </span>
-                  <h3 className="font-bold text-gray-900 text-lg mt-2 mb-3 group-hover:text-[#8B4513] transition-colors">
-                    {post.title}
-                  </h3>
-                  <div className="flex justify-between items-center text-sm text-gray-600">
-                    <span>{post.readTime}</span>
-                    <span className="text-[#8B4513] font-semibold">
-                      Read More →
-                    </span>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <FetchNewsAPIArticles />
 
       <section className="py-20 bg-linear-to-br from-[#8B4513] to-[#6B3410] text-white">
         <div className="max-w-4xl mx-auto px-4 text-center">
