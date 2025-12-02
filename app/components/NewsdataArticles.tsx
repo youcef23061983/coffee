@@ -1302,47 +1302,108 @@ const NewsdataArticles = () => {
   };
 
   // Main fetch function with cache and fallback
+  // const fetchCoffeeArticles = async () => {
+  //   try {
+  //     setLoading(true);
+
+  //     // 1. Check cache first
+  //     const cached = getCachedArticles();
+  //     if (cached && cached.length > 0) {
+  //       setArticles(cached);
+  //       setLoading(false);
+  //       return;
+  //     }
+
+  //     // 2. Try to fetch from API
+  //     console.log("Fetching fresh articles from API...");
+  //     const apiArticles = await fetchFromNewsData();
+
+  //     // 3. If we got API articles, use and cache them
+  //     if (apiArticles.length > 0) {
+  //       console.log(`Got ${apiArticles.length} articles from API`);
+  //       setArticles(apiArticles);
+  //       cacheArticles(apiArticles);
+  //       return;
+  //     }
+
+  //     // 4. Fallback to mock data if API returns nothing
+  //     console.log("API returned no articles, using mock data");
+  //     const mockArticles = getMockArticles();
+  //     setArticles(mockArticles);
+  //     cacheArticles(mockArticles); // Cache mock data too
+  //   } catch (err) {
+  //     console.error("Error in fetch:", err);
+
+  //     // 5. Ultimate fallback to mock data on error
+  //     const mockArticles = getMockArticles();
+  //     setArticles(mockArticles);
+  //     cacheArticles(mockArticles);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+  // Main fetch function - FIXED caching
   const fetchCoffeeArticles = async () => {
     try {
       setLoading(true);
 
-      // 1. Check cache first
+      // 1. Check cache first - but only use if it has real API data
       const cached = getCachedArticles();
       if (cached && cached.length > 0) {
-        setArticles(cached);
-        setLoading(false);
-        return;
+        // Check if cached data looks like real API data (not mock)
+        const isRealAPIData = cached.some(
+          (article) =>
+            !article.source.includes("Coffee Geek") &&
+            !article.source.includes("Home Barista") &&
+            !article.source.includes("Brew Methods")
+        );
+
+        if (isRealAPIData) {
+          console.log(`Using ${cached.length} cached API articles`);
+          setArticles(cached);
+          setLoading(false);
+          return;
+        } else {
+          console.log("Cached data appears to be mock, refetching...");
+        }
       }
 
-      // 2. Try to fetch from API
-      console.log("Fetching fresh articles from API...");
-      const apiArticles = await fetchFromNewsData();
+      // 2. Start API fetch immediately
+      console.log("Fetching from API...");
 
-      // 3. If we got API articles, use and cache them
-      if (apiArticles.length > 0) {
-        console.log(`Got ${apiArticles.length} articles from API`);
-        setArticles(apiArticles);
-        cacheArticles(apiArticles);
-        return;
-      }
-
-      // 4. Fallback to mock data if API returns nothing
-      console.log("API returned no articles, using mock data");
+      // Show mock data immediately for instant UX
       const mockArticles = getMockArticles();
       setArticles(mockArticles);
-      cacheArticles(mockArticles); // Cache mock data too
+
+      // 3. Fetch real API in background
+      try {
+        const apiArticles = await fetchFromNewsData();
+
+        if (apiArticles.length >= 2) {
+          // Lower threshold to accept more results
+          console.log(`✅ Got ${apiArticles.length} real articles from API`);
+          setArticles(apiArticles);
+          // ONLY CACHE REAL API DATA, not mock
+          cacheArticles(apiArticles);
+        } else {
+          console.log(
+            `⚠️ Only got ${apiArticles.length} articles from API, keeping mock data`
+          );
+          // Don't cache mock data on API failure
+        }
+      } catch (err) {
+        console.error("API fetch failed, keeping mock data:", err);
+        // Don't cache on error
+      }
     } catch (err) {
       console.error("Error in fetch:", err);
-
-      // 5. Ultimate fallback to mock data on error
+      // Show mock data as fallback
       const mockArticles = getMockArticles();
       setArticles(mockArticles);
-      cacheArticles(mockArticles);
     } finally {
       setLoading(false);
     }
   };
-
   // Initialize
   useEffect(() => {
     fetchCoffeeArticles();
