@@ -285,7 +285,6 @@
 
 //       if (
 //         !apiKey ||
-//         apiKey === "your_api_key_here" ||
 //
 //       ) {
 //         console.log("No valid NewsData API key found, using mock data");

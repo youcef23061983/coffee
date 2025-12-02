@@ -9,7 +9,6 @@ export default [
   layout("routes/__root.tsx", [
     index("routes/home.tsx"),
     route("sitemap.xml", "routes/sitemap[.]xml.tsx"),
-    route("/:brandId", "routes/brands.tsx"),
 
     route("products", "routes/products.tsx"),
     route("products/:id", "routes/detail.tsx"),
@@ -29,6 +28,12 @@ export default [
     route("auth/reset-password", "routes/auth/reset-password.tsx"),
     route("order-success", "routes/order-success.tsx"),
     route("ai", "routes/ai.tsx"),
+    route("faq", "routes/FAQPage.tsx"),
+    route("privacy-policy", "routes/PrivacyPolicyPage.tsx"),
+    route("cookie-policy", "routes/CookiePolicyPage.tsx"),
+    route("terms", "routes/TermsAndConditionsPage.tsx"),
+    route("/:brandId", "routes/brands.tsx"),
+
     route("api/generate-blog", "routes/api.generate-blog.ts"),
     route("api/openrouter", "routes/api.openrouter.ts"),
 
