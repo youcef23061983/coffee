@@ -1277,11 +1277,16 @@ const NewsdataArticles = () => {
       console.log(`Fetching coffee news with query: "${query}"`);
 
       const response = await fetch(
-        `https://newsdata.io/api/1/news?apikey=${apiKey}&q=${encodeURIComponent(query)}&language=en&size=10`
+        `https://newsdata.io/api/1/news?apikey=${apiKey}&q=${encodeURIComponent(query)}&language=en&size=5`
       );
 
+      // if (!response.ok) {
+      //   throw new Error(`API error: ${response.status}`);
+      // }
       if (!response.ok) {
-        throw new Error(`API error: ${response.status}`);
+        // Don't throw, just return empty
+        console.warn(`API responded with status: ${response.status}`);
+        return [];
       }
 
       const data = await response.json();
@@ -1302,108 +1307,48 @@ const NewsdataArticles = () => {
   };
 
   // Main fetch function with cache and fallback
-  // const fetchCoffeeArticles = async () => {
-  //   try {
-  //     setLoading(true);
-
-  //     // 1. Check cache first
-  //     const cached = getCachedArticles();
-  //     if (cached && cached.length > 0) {
-  //       setArticles(cached);
-  //       setLoading(false);
-  //       return;
-  //     }
-
-  //     // 2. Try to fetch from API
-  //     console.log("Fetching fresh articles from API...");
-  //     const apiArticles = await fetchFromNewsData();
-
-  //     // 3. If we got API articles, use and cache them
-  //     if (apiArticles.length > 0) {
-  //       console.log(`Got ${apiArticles.length} articles from API`);
-  //       setArticles(apiArticles);
-  //       cacheArticles(apiArticles);
-  //       return;
-  //     }
-
-  //     // 4. Fallback to mock data if API returns nothing
-  //     console.log("API returned no articles, using mock data");
-  //     const mockArticles = getMockArticles();
-  //     setArticles(mockArticles);
-  //     cacheArticles(mockArticles); // Cache mock data too
-  //   } catch (err) {
-  //     console.error("Error in fetch:", err);
-
-  //     // 5. Ultimate fallback to mock data on error
-  //     const mockArticles = getMockArticles();
-  //     setArticles(mockArticles);
-  //     cacheArticles(mockArticles);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-  // Main fetch function - FIXED caching
   const fetchCoffeeArticles = async () => {
     try {
       setLoading(true);
 
-      // 1. Check cache first - but only use if it has real API data
+      // 1. Check cache first
       const cached = getCachedArticles();
       if (cached && cached.length > 0) {
-        // Check if cached data looks like real API data (not mock)
-        const isRealAPIData = cached.some(
-          (article) =>
-            !article.source.includes("Coffee Geek") &&
-            !article.source.includes("Home Barista") &&
-            !article.source.includes("Brew Methods")
-        );
-
-        if (isRealAPIData) {
-          console.log(`Using ${cached.length} cached API articles`);
-          setArticles(cached);
-          setLoading(false);
-          return;
-        } else {
-          console.log("Cached data appears to be mock, refetching...");
-        }
+        setArticles(cached);
+        setLoading(false);
+        return;
       }
 
-      // 2. Start API fetch immediately
-      console.log("Fetching from API...");
+      // 2. Try to fetch from API
+      console.log("Fetching fresh articles from API...");
+      const apiArticles = await fetchFromNewsData();
 
-      // Show mock data immediately for instant UX
+      // 3. If we got API articles, use and cache them
+      if (apiArticles.length > 0) {
+        console.log(`Got ${apiArticles.length} articles from API`);
+        setArticles(apiArticles);
+        cacheArticles(apiArticles);
+        return;
+      }
+
+      // 4. Fallback to mock data if API returns nothing
+      console.log("API returned no articles, using mock data");
       const mockArticles = getMockArticles();
       setArticles(mockArticles);
-
-      // 3. Fetch real API in background
-      try {
-        const apiArticles = await fetchFromNewsData();
-
-        if (apiArticles.length >= 2) {
-          // Lower threshold to accept more results
-          console.log(`✅ Got ${apiArticles.length} real articles from API`);
-          setArticles(apiArticles);
-          // ONLY CACHE REAL API DATA, not mock
-          cacheArticles(apiArticles);
-        } else {
-          console.log(
-            `⚠️ Only got ${apiArticles.length} articles from API, keeping mock data`
-          );
-          // Don't cache mock data on API failure
-        }
-      } catch (err) {
-        console.error("API fetch failed, keeping mock data:", err);
-        // Don't cache on error
-      }
+      cacheArticles(mockArticles); // Cache mock data too
     } catch (err) {
       console.error("Error in fetch:", err);
-      // Show mock data as fallback
+
+      // 5. Ultimate fallback to mock data on error
       const mockArticles = getMockArticles();
       setArticles(mockArticles);
+      cacheArticles(mockArticles);
     } finally {
       setLoading(false);
     }
   };
+  // Main fetch function - FIXED caching
+
   // Initialize
   useEffect(() => {
     fetchCoffeeArticles();
@@ -1438,13 +1383,13 @@ const NewsdataArticles = () => {
           <p className="text-xl text-gray-200">
             Expert tips, brewing guides, and coffee education from top sources
           </p>
-          {/* <button
+          <button
             onClick={handleRetry}
             className="mt-4 text-sm text-gray-300 hover:text-white"
             title="Get fresh articles"
           >
             Refresh Articles
-          </button> */}
+          </button>
         </div>
 
         <div ref={articlesSectionRef}>
