@@ -733,7 +733,7 @@ const TermsAndConditionsPage: React.FC = () => {
 
   return (
     <div>
-      <section className="relative h-screen flex items-center justify-center overflow-hidden bg-gradient-to-r bg-black">
+      <section className="relative h-screen flex items-center justify-center overflow-hidden bg-linear-to-r bg-black">
         <motion.div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-60"
           style={{ backgroundImage: "url('/terms.jpg')" }}
@@ -855,7 +855,7 @@ const TermsAndConditionsPage: React.FC = () => {
                   >
                     <span className="truncate">{section.title}</span>
                     {section.important && (
-                      <span className="flex-shrink-0 w-2 h-2 bg-red-500 rounded-full ml-2"></span>
+                      <span className="shrink-0 w-2 h-2 bg-red-500 rounded-full ml-2"></span>
                     )}
                   </button>
                 ))}
@@ -890,7 +890,7 @@ const TermsAndConditionsPage: React.FC = () => {
                   className="scroll-mt-24 bg-white rounded-xl shadow-sm p-8 border border-gray-200"
                 >
                   <div className="flex items-start mb-6">
-                    <div className="flex-shrink-0 w-10 h-10 bg-amber-100 text-amber-800 rounded-full flex items-center justify-center font-bold mr-4">
+                    <div className="shrink-0 w-10 h-10 bg-amber-100 text-amber-800 rounded-full flex items-center justify-center font-bold mr-4">
                       {index + 1}
                     </div>
                     <div>
@@ -925,7 +925,7 @@ const TermsAndConditionsPage: React.FC = () => {
             </div>
 
             {/* Acceptance Footer */}
-            <div className="mt-12 bg-gradient-to-r from-amber-50 to-amber-100 border border-amber-200 rounded-xl p-8">
+            <div className="mt-12 bg-linear-to-r from-amber-50 to-amber-100 border border-amber-200 rounded-xl p-8">
               <div className="text-center">
                 <h3 className="text-2xl font-bold text-gray-900 mb-4">
                   Agreement Acceptance

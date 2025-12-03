@@ -1568,7 +1568,7 @@ interface CoffeeArticle {
 // Cache configuration
 const CACHE_KEY = "coffee_news_cache_v3";
 const CACHE_DURATION_API = 15 * 24 * 60 * 60 * 1000; // 15 days for API data
-const CACHE_DURATION_MOCK = 2 * 60 * 60 * 1000; // 2 hours for mock data
+const CACHE_DURATION_MOCK = 15 * 60 * 60 * 1000; // 15 hours for mock data
 
 // Cache data interface
 interface CacheData {
@@ -1711,7 +1711,7 @@ const NewsdataArticles = () => {
       readTime: "12 min read",
       category: "Brewing Techniques",
       image:
-        "https://images.unsplash.com/photo-1498804103079-a6351b050096?w=800&h=600&fit=crop&crop=center",
+        "https://colipsecoffee.com/cdn/shop/articles/coffee-brewing-methods_a747246a-a481-4698-9105-67dc59ab1a0d.jpg?format=webp&amp;quality=80&amp;v=1755016564&amp;width=1200",
     },
     {
       title: "Espresso Machine Technology",
@@ -1722,7 +1722,7 @@ const NewsdataArticles = () => {
       readTime: "9 min read",
       category: "Espresso Machines",
       image:
-        "https://images.unsplash.com/photo-1512568400610-62da28bc8a13?w=800&h=600&fit=crop&crop=center",
+        "https://kaapimachines.com/wp-content/uploads/2024/09/La-Marzocco-webp.webp",
     },
     {
       title: "Coffee Grinder Types",
@@ -1733,7 +1733,7 @@ const NewsdataArticles = () => {
       readTime: "7 min read",
       category: "Coffee Grinders",
       image:
-        "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&h=600&fit=crop&crop=center",
+        "https://kaapimachines.com/wp-content/uploads/2024/09/HeyCafe-HC880-Lab-Shop-Grinder.webp",
     },
     {
       title: "French Press Brewing",
@@ -1744,7 +1744,7 @@ const NewsdataArticles = () => {
       readTime: "5 min read",
       category: "French Press",
       image:
-        "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=800&h=600&fit=crop&crop=center",
+        "https://perfectdailygrind.com/wp-content/uploads/2020/04/Home-Brewing-1.png",
     },
     {
       title: "Cold Brew Coffee",
@@ -1753,8 +1753,7 @@ const NewsdataArticles = () => {
       source: "Hard Tank",
       readTime: "6 min read",
       category: "Cold Brew",
-      image:
-        "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=800&h=600&fit=crop&crop=center",
+      image: "http://hardtank.com/wp-content/uploads/2025/04/Science1.jpg",
     },
     {
       title: "Coffee Roasting Process",
@@ -1765,7 +1764,7 @@ const NewsdataArticles = () => {
       readTime: "8 min read",
       category: "Coffee Beans",
       image:
-        "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=800&h=600&fit=crop&crop=center",
+        "https://colipsecoffee.com/cdn/shop/articles/coffee-roast-levels-explained.webp?quality=80&v=1764152459&width=768",
     },
   ];
   // Get cached articles with appropriate duration
@@ -1934,33 +1933,33 @@ const NewsdataArticles = () => {
       setLoading(true);
 
       // 1. Check cache first
-      const cached = getCachedArticles();
-      if (cached && cached.length > 0) {
-        setArticles(cached);
-        setLoading(false);
+      // const cached = getCachedArticles();
+      // if (cached && cached.length > 0) {
+      //   setArticles(cached);
+      //   setLoading(false);
 
-        // If cache is stale, refresh in background
-        if (shouldRefreshInBackground()) {
-          refreshArticlesInBackground();
-        }
-        return;
-      }
+      //   // If cache is stale, refresh in background
+      //   if (shouldRefreshInBackground()) {
+      //     refreshArticlesInBackground();
+      //   }
+      //   return;
+      // }
 
       // 2. Show mock data immediately
       const mockArticles = getMockArticles();
       setArticles(mockArticles);
 
       // 3. Try API
-      const apiArticles = await fetchFromNewsData();
+      // const apiArticles = await fetchFromNewsData();
 
-      if (apiArticles.length > 0) {
-        console.log(`✅ Got ${apiArticles.length} fresh API articles`);
-        setArticles(apiArticles);
-        cacheArticles(apiArticles, true); // Cache as API data (24h)
-      } else {
-        console.log("❌ API returned no articles");
-        cacheArticles(mockArticles, false); // Cache as mock data (2h only)
-      }
+      // if (apiArticles.length > 0) {
+      //   console.log(`✅ Got ${apiArticles.length} fresh API articles`);
+      //   setArticles(apiArticles);
+      //   cacheArticles(apiArticles, true); // Cache as API data (24h)
+      // } else {
+      //   console.log("❌ API returned no articles");
+      //   cacheArticles(mockArticles, false); // Cache as mock data (2h only)
+      // }
     } catch (err) {
       console.error("Error:", err);
       const mockArticles = getMockArticles();
