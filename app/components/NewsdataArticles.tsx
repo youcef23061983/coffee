@@ -1706,8 +1706,8 @@ const NewsdataArticles = () => {
       title: "Coffee Preparation Methods",
       description:
         "Comprehensive guide to various coffee brewing techniques from around the world.",
-      url: "https://en.wikipedia.org/wiki/Coffee_preparation",
-      source: "Wikipedia",
+      url: "https://colipsecoffee.com/blogs/coffee/brewing-methods",
+      source: "Colipse Coffee",
       readTime: "12 min read",
       category: "Brewing Techniques",
       image:
@@ -1717,8 +1717,8 @@ const NewsdataArticles = () => {
       title: "Espresso Machine Technology",
       description:
         "How espresso machines work and the different types available.",
-      url: "https://en.wikipedia.org/wiki/Espresso_machine",
-      source: "Wikipedia",
+      url: "https://kaapimachines.com/understanding-espresso-machines",
+      source: "Kaapi Machines",
       readTime: "9 min read",
       category: "Espresso Machines",
       image:
@@ -1728,8 +1728,8 @@ const NewsdataArticles = () => {
       title: "Coffee Grinder Types",
       description:
         "Understanding burr grinders, blade grinders, and their impact on coffee quality.",
-      url: "https://en.wikipedia.org/wiki/Coffee_grinder",
-      source: "Wikipedia",
+      url: "https://kaapimachines.com/understanding-coffee-grinders",
+      source: "Kaapi Machines",
       readTime: "7 min read",
       category: "Coffee Grinders",
       image:
@@ -1739,8 +1739,8 @@ const NewsdataArticles = () => {
       title: "French Press Brewing",
       description:
         "History and technique of the French press coffee brewing method.",
-      url: "https://en.wikipedia.org/wiki/French_press",
-      source: "Wikipedia",
+      url: "https://perfectdailygrind.com/2020/03/french-press-to-pour-over-how-to-make-coffee-at-home/",
+      source: "Perfect Daily Grind",
       readTime: "5 min read",
       category: "French Press",
       image:
@@ -1749,8 +1749,8 @@ const NewsdataArticles = () => {
     {
       title: "Cold Brew Coffee",
       description: "The science and method behind cold brew coffee extraction.",
-      url: "https://en.wikipedia.org/wiki/Cold_brew_coffee",
-      source: "Wikipedia",
+      url: "https://hardtank.com/2025/05/06/science-of-cold-brew-extraction",
+      source: "Hard Tank",
       readTime: "6 min read",
       category: "Cold Brew",
       image:
@@ -1760,8 +1760,8 @@ const NewsdataArticles = () => {
       title: "Coffee Roasting Process",
       description:
         "How coffee beans are roasted and how it affects flavor profiles.",
-      url: "https://en.wikipedia.org/wiki/Coffee_roasting",
-      source: "Wikipedia",
+      url: "https://colipsecoffee.com/blogs/coffee/roast-levels",
+      source: "Colipse Coffee",
       readTime: "8 min read",
       category: "Coffee Beans",
       image:
