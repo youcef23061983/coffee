@@ -190,17 +190,49 @@ const Footer = () => {
                   equipment reviews, and exclusive offers.
                 </p>
 
-                <form className="space-y-4">
+                {/* Mailchimp Form */}
+                <form
+                  action="https://gmail.us17.list-manage.com/subscribe/post"
+                  method="post"
+                  target="_blank"
+                  noValidate
+                  className="space-y-4"
+                >
+                  {/* Hidden Mailchimp fields */}
+                  <input
+                    type="hidden"
+                    name="u"
+                    value="7ad762b30afd3fc220fb19719"
+                  />
+                  <input type="hidden" name="id" value="0a15c5eabf" />
+                  <input type="hidden" name="f_id" value="00da81e2f0" />
+
                   <div className="relative">
                     <input
                       type="email"
+                      name="EMAIL"
                       placeholder="Your email address"
                       className="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:border-[#b07d52] focus:ring-2 focus:ring-[#b07d52] focus:ring-opacity-50"
+                      required
                     />
                   </div>
+
+                  {/* Anti-bot hidden field (IMPORTANT for Mailchimp) */}
+                  <div
+                    style={{ position: "absolute", left: "-5000px" }}
+                    aria-hidden="true"
+                  >
+                    <input
+                      type="text"
+                      name="b_7ad762b30afd3fc220fb19719_0a15c5eabf"
+                      tabIndex={-1}
+                      defaultValue=""
+                    />
+                  </div>
+
                   <button
                     type="submit"
-                    className="w-full bg-linear-to-r from-[#b07d52] to-[#946743] text-white py-3 px-6 rounded-lg font-semibold hover:from-[#946743] hover:to-[#b07d52] transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                    className="w-full bg-gradient-to-r from-[#b07d52] to-[#946743] text-white py-3 px-6 rounded-lg font-semibold hover:from-[#946743] hover:to-[#b07d52] transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
                   >
                     Subscribe Now
                   </button>
