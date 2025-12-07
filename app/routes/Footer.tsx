@@ -43,9 +43,9 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white pt-16 pb-8 px-4 relative overflow-hidden">
+    <footer className="bg-linear-to-br from-gray-900 via-gray-800 to-black text-white pt-16 pb-8 px-4 relative overflow-hidden">
       {/* Decorative elements */}
-      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#b07d52] via-[#946743] to-[#b07d52]"></div>
+      <div className="absolute top-0 left-0 right-0 h-1 bg-linear-to-r from-[#b07d52] via-[#946743] to-[#b07d52]"></div>
 
       {/* Coffee bean pattern background */}
       <div className="absolute inset-0 opacity-5">
@@ -67,7 +67,7 @@ const Footer = () => {
                   loading="lazy"
                 />
                 <div>
-                  <span className="text-5xl font-bold bg-gradient-to-r from-[#b07d52] via-[#d4a574] to-[#b07d52] bg-clip-text text-transparent">
+                  <span className="text-5xl font-bold bg-linear-to-r from-[#b07d52] via-[#d4a574] to-[#b07d52] bg-clip-text text-transparent">
                     BrewTopia
                   </span>
                   <p className="text-gray-300 text-lg mt-2">
@@ -148,7 +148,7 @@ const Footer = () => {
                   <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none whitespace-nowrap">
                     <div className="bg-gray-900 text-white text-xs font-medium py-1.5 px-3 rounded-lg shadow-lg">
                       {social.name}
-                      <div className="absolute bottom-[-6px] left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-[6px] border-r-[6px] border-t-[6px] border-l-transparent border-r-transparent border-t-gray-900"></div>
+                      <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-[6px] border-r-[6px] border-t-[6px] border-l-transparent border-r-transparent border-t-gray-900"></div>
                     </div>
                   </div>
                 </a>
@@ -232,7 +232,7 @@ const Footer = () => {
 
                   <button
                     type="submit"
-                    className="w-full bg-gradient-to-r from-[#b07d52] to-[#946743] text-white py-3 px-6 rounded-lg font-semibold hover:from-[#946743] hover:to-[#b07d52] transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                    className="w-full bg-linear-to-r from-[#b07d52] to-[#946743] text-white py-3 px-6 rounded-lg font-semibold hover:from-[#946743] hover:to-[#b07d52] transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
                   >
                     Subscribe Now
                   </button>

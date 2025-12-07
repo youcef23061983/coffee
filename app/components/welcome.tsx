@@ -22,6 +22,7 @@ export function Welcome({ data, brands }: WelcomeProps) {
   }
 
   // Helper function to determine category based on content
+  console.log("data all:", data);
 
   return (
     <>
@@ -223,6 +224,7 @@ export function Welcome({ data, brands }: WelcomeProps) {
                   <span>★ {brand.sustainability_rating}/5</span>
                   <span>•</span>
                   <span>{brand.products_count} products</span>
+                  <span>{brand.equipment_count} equipment</span>
                 </div>
                 <button
                   className="bg-white text-[#b07d52] cursor-pointer mt-2 px-3 py-1.5 rounded-lg border border-[#b07d52] hover:bg-[#b07d52] hover:text-white transition-all duration-300 ease-in-out"

@@ -98,6 +98,7 @@ export async function loader() {
   const brandsWithProductCount = data?.map((brand) => ({
     ...brand,
     products_count: brand.coffee_products?.length || 0,
+    equipment_count: brand.equipment_products?.length || 0,
   }));
 
   return { data: brandsWithProductCount };
