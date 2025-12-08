@@ -90,9 +90,9 @@ export default function ProductDetail({
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-50">
+    <div className="min-h-screen bg-linear-to-br from-amber-50 to-orange-50">
       {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden bg-gradient-to-r from-amber-900 to-orange-900">
+      <section className="relative h-screen flex items-center justify-center overflow-hidden bg-linear-to-r from-amber-900 to-orange-900">
         <motion.div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20"
           style={{ backgroundImage: "url('/detail.jpg')" }}
@@ -395,7 +395,7 @@ function AddToCartSection({
       </div>
 
       <motion.button
-        className="w-full py-4 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-xl font-semibold text-lg shadow-lg"
+        className="w-full py-4 bg-linear-to-r from-amber-500 to-orange-500 text-white rounded-xl font-semibold text-lg shadow-lg"
         whileHover={{
           scale: 1.02,
           boxShadow: "0 10px 30px rgba(245, 158, 11, 0.4)",
