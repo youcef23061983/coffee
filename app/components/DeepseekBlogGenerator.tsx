@@ -136,16 +136,6 @@ ${generatedPost.content}
         </button>
       </fetcher.Form>
 
-      {/* Debug information */}
-      {/* {fetcher.data && (
-        <div className="mt-4 p-3 bg-blue-50 rounded-lg">
-          <p className="text-sm text-blue-700">
-            Debug: {fetcher.data.success ? "Success" : "Failed"} -{" "}
-            {JSON.stringify(fetcher.data).substring(0, 100)}...
-          </p>
-        </div>
-      )} */}
-
       {/* Results Section */}
       {generatedPost && (
         <div className="mt-8 p-6 bg-gray-50 rounded-lg border animate-fade-in">
