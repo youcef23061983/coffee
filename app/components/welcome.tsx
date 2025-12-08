@@ -280,52 +280,6 @@ export function Welcome({ data, brands }: WelcomeProps) {
 
       <NewsdataArticles />
 
-      <section className="py-20 bg-linear-to-br from-[#8B4513] to-[#6B3410] text-white">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            className="text-4xl font-bold mb-4"
-          >
-            Join Our Coffee Community
-          </motion.h2>
-
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-xl mb-8 text-gray-200"
-          >
-            Get weekly brewing tips, new roaster spotlights, and exclusive
-            offers
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto"
-          >
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="flex-1 px-4 py-3 rounded-full text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#D2691E]"
-            />
-            <button className="bg-white text-[#8B4513] px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors cursor-pointer">
-              Subscribe
-            </button>
-          </motion.div>
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ delay: 0.6 }}
-            className="text-sm text-gray-300 mt-4"
-          >
-            Unsubscribe anytime. We respect your privacy.
-          </motion.p>
-        </div>
-      </section>
       {/* <section className="py-20 bg-[#FFF8F0]"> */}
       <section
         className="w-full py-20 relative bg-cover bg-center bg-no-repeat  contain-content flex justify-center items-center"
