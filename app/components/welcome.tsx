@@ -73,7 +73,7 @@ export function Welcome({ data, brands }: WelcomeProps) {
               className="border-2 border-white text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-white hover:text-black transition-all cursor-pointer"
               onClick={() => navigate("/products")}
             >
-              Browse All Roasters
+              View All Products →{" "}
             </button>
           </motion.div>
 

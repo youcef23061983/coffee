@@ -55,7 +55,43 @@ export function meta({}: Route.MetaArgs) {
 const Products = () => {
   return (
     <>
-      <ClientOnly fallback={<p>Loading client...</p>}>
+      <div className="sr-only" aria-hidden="true">
+        <h1>Prew Topia Premium Coffee Products Collection</h1>
+        <p>
+          Discover specialty coffee beans from Blue Bottle, Intelligentsia,
+          Stumptown, Method Coffee and professional brewing equipment from
+          Baratza, Fellow, Breville, Hario, Chemex.
+        </p>
+        <h2>Coffee Beans</h2>
+        <p>
+          Single-origin, blends, espresso, light to dark roast. Fresh roasted
+          weekly.
+        </p>
+        <ul>
+          <li>Blue Bottle Coffee - Ethiopian single-origin - $29.99</li>
+          <li>Intelligentsia - Black Cat Espresso - $26.99</li>
+          <li>Stumptown - Hair Bender Blend - $28.99</li>
+        </ul>
+        <h2>Brewing Equipment</h2>
+        <p>Grinders, kettles, brewers, scales & accessories from top brands.</p>
+        <ul>
+          <li>Encore Conical Burr Grinder - $169.99</li>
+          <li>Fellow Stagg Kettle - $5.99</li>
+          <li>Hario V60 Dripper - $28.99</li>
+        </ul>
+      </div>
+      <ClientOnly
+        fallback={
+          <div className="h-screen flex items-center justify-center">
+            <div className="text-center">
+              <div className="text-6xl animate-pulse mb-4">☕</div>
+              <p className="text-amber-600">
+                Preparing your coffee experience...
+              </p>
+            </div>
+          </div>
+        }
+      >
         <ProductsClient />
       </ClientOnly>
     </>
