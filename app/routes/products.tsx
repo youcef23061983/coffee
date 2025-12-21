@@ -1,68 +1,68 @@
-// import React from "react";
-// import { ClientOnly } from "~/components/ClientOnly";
-// import ProductsClient from "~/components/productsClient";
-// import type { Route } from "./+types/products";
-// export function meta({}: Route.MetaArgs) {
-//   return [
-//     { title: "Curated Coffee Roasters & Brewing Gear | BrewTopia Collection" },
-//     {
-//       name: "description",
-//       content:
-//         "Blue Bottle, Intelligentsia, Stumptown, Method Coffee roasters + Baratza, Fellow, Breville, Hario, Chemex equipment. Complete coffee setup from top brands. Fresh roasted weekly.",
-//     },
-//     { name: "author", content: "BrewTopia" },
+import React from "react";
+import { ClientOnly } from "~/components/ClientOnly";
+import ProductsClient from "~/components/productsClient";
+import type { Route } from "./+types/products";
+export function meta({}: Route.MetaArgs) {
+  return [
+    { title: "Curated Coffee Roasters & Brewing Gear | BrewTopia Collection" },
+    {
+      name: "description",
+      content:
+        "Blue Bottle, Intelligentsia, Stumptown, Method Coffee roasters + Baratza, Fellow, Breville, Hario, Chemex equipment. Complete coffee setup from top brands. Fresh roasted weekly.",
+    },
+    { name: "author", content: "BrewTopia" },
 
-//     // Open Graph
-//     {
-//       property: "og:title",
-//       content: "Top Coffee Brands & Equipment | BrewTopia Collection",
-//     },
-//     {
-//       property: "og:description",
-//       content:
-//         "From Blue Bottle beans to Baratza grinders - we've curated the perfect coffee ecosystem. Shop premium roasters & professional equipment in one trusted destination.",
-//     },
-//     { property: "og:type", content: "website" },
-//     {
-//       property: "og:url",
-//       content: "https://coffee-khaki-seven.vercel.app/products",
-//     },
-//     {
-//       property: "og:image",
-//       content: "https://coffee-khaki-seven.vercel.app/products.jpg",
-//     },
-//     { property: "og:site_name", content: "BrewTopia" },
+    // Open Graph
+    {
+      property: "og:title",
+      content: "Top Coffee Brands & Equipment | BrewTopia Collection",
+    },
+    {
+      property: "og:description",
+      content:
+        "From Blue Bottle beans to Baratza grinders - we've curated the perfect coffee ecosystem. Shop premium roasters & professional equipment in one trusted destination.",
+    },
+    { property: "og:type", content: "website" },
+    {
+      property: "og:url",
+      content: "https://coffee-khaki-seven.vercel.app/products",
+    },
+    {
+      property: "og:image",
+      content: "https://coffee-khaki-seven.vercel.app/products.jpg",
+    },
+    { property: "og:site_name", content: "BrewTopia" },
 
-//     // Twitter
-//     { name: "twitter:card", content: "summary_large_image" },
-//     {
-//       name: "twitter:title",
-//       content: "Coffee Brands & Equipment Collection | BrewTopia",
-//     },
-//     {
-//       name: "twitter:description",
-//       content:
-//         "Blue Bottle ☕ Baratza ⚙️ Fellow ♨️ - All your favorite coffee brands in one place! Complete setups from bean to brew. 🌟",
-//     },
-//     {
-//       name: "twitter:image",
-//       content: "https://coffee-khaki-seven.vercel.app/products.jpg",
-//     },
-//     { name: "twitter:site", content: "@brewtpia" },
-//   ];
-// }
+    // Twitter
+    { name: "twitter:card", content: "summary_large_image" },
+    {
+      name: "twitter:title",
+      content: "Coffee Brands & Equipment Collection | BrewTopia",
+    },
+    {
+      name: "twitter:description",
+      content:
+        "Blue Bottle ☕ Baratza ⚙️ Fellow ♨️ - All your favorite coffee brands in one place! Complete setups from bean to brew. 🌟",
+    },
+    {
+      name: "twitter:image",
+      content: "https://coffee-khaki-seven.vercel.app/products.jpg",
+    },
+    { name: "twitter:site", content: "@brewtpia" },
+  ];
+}
 
-// const Products = () => {
-//   return (
-//     <>
-//       <ClientOnly fallback={<p>Loading client...</p>}>
-//         <ProductsClient />
-//       </ClientOnly>
-//     </>
-//   );
-// };
+const Products = () => {
+  return (
+    <>
+      <ClientOnly fallback={<p>Loading client...</p>}>
+        <ProductsClient />
+      </ClientOnly>
+    </>
+  );
+};
 
-// export default Products;
+export default Products;
 
 // ::::::::::::::::::::::serach console url solution1:
 
@@ -435,183 +435,183 @@
 // export default Products;
 
 ///////////////////////////////serach google solution2:
-import React from "react";
-import { ClientOnly } from "~/components/ClientOnly";
-import ProductsClient from "~/components/productsClient";
-import type { Route } from "./+types/products";
+// import React from "react";
+// import { ClientOnly } from "~/components/ClientOnly";
+// import ProductsClient from "~/components/productsClient";
+// import type { Route } from "./+types/products";
 
-export function meta({}: Route.MetaArgs) {
-  return [
-    { title: "Curated Coffee Roasters & Brewing Gear | BrewTopia Collection" },
-    {
-      name: "description",
-      content:
-        "Blue Bottle, Intelligentsia, Stumptown, Method Coffee roasters + Baratza, Fellow, Breville, Hario, Chemex equipment. Complete coffee setup from top brands.",
-    },
-    { name: "author", content: "BrewTopia" },
+// export function meta({}: Route.MetaArgs) {
+//   return [
+//     { title: "Curated Coffee Roasters & Brewing Gear | BrewTopia Collection" },
+//     {
+//       name: "description",
+//       content:
+//         "Blue Bottle, Intelligentsia, Stumptown, Method Coffee roasters + Baratza, Fellow, Breville, Hario, Chemex equipment. Complete coffee setup from top brands.",
+//     },
+//     { name: "author", content: "BrewTopia" },
 
-    // Open Graph - YOUR IMAGE WORKS!
-    {
-      property: "og:title",
-      content: "Top Coffee Brands & Equipment | BrewTopia Collection",
-    },
-    {
-      property: "og:description",
-      content:
-        "From Blue Bottle beans to Baratza grinders - we've curated the perfect coffee ecosystem.",
-    },
-    { property: "og:type", content: "website" },
-    {
-      property: "og:url",
-      content: "https://coffee-khaki-seven.vercel.app/products",
-    },
-    {
-      property: "og:image",
-      content: "https://coffee-khaki-seven.vercel.app/products.jpg",
-    },
-    { property: "og:image:width", content: "1200" },
-    { property: "og:image:height", content: "630" },
-    { property: "og:site_name", content: "BrewTopia" },
+//     // Open Graph - YOUR IMAGE WORKS!
+//     {
+//       property: "og:title",
+//       content: "Top Coffee Brands & Equipment | BrewTopia Collection",
+//     },
+//     {
+//       property: "og:description",
+//       content:
+//         "From Blue Bottle beans to Baratza grinders - we've curated the perfect coffee ecosystem.",
+//     },
+//     { property: "og:type", content: "website" },
+//     {
+//       property: "og:url",
+//       content: "https://coffee-khaki-seven.vercel.app/products",
+//     },
+//     {
+//       property: "og:image",
+//       content: "https://coffee-khaki-seven.vercel.app/products.jpg",
+//     },
+//     { property: "og:image:width", content: "1200" },
+//     { property: "og:image:height", content: "630" },
+//     { property: "og:site_name", content: "BrewTopia" },
 
-    // Twitter
-    { name: "twitter:card", content: "summary_large_image" },
-    {
-      name: "twitter:title",
-      content: "Coffee Brands & Equipment Collection | BrewTopia",
-    },
-    {
-      name: "twitter:description",
-      content:
-        "Blue Bottle ☕ Baratza ⚙️ Fellow ♨️ - All your favorite coffee brands in one place!",
-    },
-    {
-      name: "twitter:image",
-      content: "https://coffee-khaki-seven.vercel.app/products.jpg",
-    },
-    { name: "twitter:site", content: "@brewtpia" },
-  ];
-}
+//     // Twitter
+//     { name: "twitter:card", content: "summary_large_image" },
+//     {
+//       name: "twitter:title",
+//       content: "Coffee Brands & Equipment Collection | BrewTopia",
+//     },
+//     {
+//       name: "twitter:description",
+//       content:
+//         "Blue Bottle ☕ Baratza ⚙️ Fellow ♨️ - All your favorite coffee brands in one place!",
+//     },
+//     {
+//       name: "twitter:image",
+//       content: "https://coffee-khaki-seven.vercel.app/products.jpg",
+//     },
+//     { name: "twitter:site", content: "@brewtpia" },
+//   ];
+// }
 
-const Products = () => {
-  return (
-    <>
-      {/* ========== CONTENT FOR GOOGLE ========== */}
-      {/* This renders on server, Google sees it immediately */}
-      <main className="container mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold mb-4">
-          Premium Coffee Products Collection
-        </h1>
-        <p className="text-lg text-gray-600 mb-6">
-          Discover specialty coffee beans from world-renowned roasters and
-          professional brewing equipment for every skill level.
-        </p>
+// const Products = () => {
+//   return (
+//     <>
+//       {/* ========== CONTENT FOR GOOGLE ========== */}
+//       {/* This renders on server, Google sees it immediately */}
+//       <main className="container mx-auto px-4 py-8">
+//         <h1 className="text-3xl font-bold mb-4">
+//           Premium Coffee Products Collection
+//         </h1>
+//         <p className="text-lg text-gray-600 mb-6">
+//           Discover specialty coffee beans from world-renowned roasters and
+//           professional brewing equipment for every skill level.
+//         </p>
 
-        {/* Product Categories */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-          <div className="border rounded-lg p-6 shadow-sm">
-            <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
-              <span className="text-2xl">☕</span> Coffee Beans
-            </h2>
-            <p className="text-gray-600 mb-4">
-              Single-origin, blends, espresso, light to dark roast. Fresh
-              roasted weekly.
-            </p>
-            <div className="space-y-3">
-              <div className="flex justify-between items-center">
-                <span className="font-medium">Blue Bottle Coffee</span>
-                <span className="text-[#b07d52] font-bold">$24.99</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="font-medium">Intelligentsia Black Cat</span>
-                <span className="text-[#b07d52] font-bold">$22.99</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="font-medium">Stumptown Hair Bender</span>
-                <span className="text-[#b07d52] font-bold">$21.99</span>
-              </div>
-            </div>
-          </div>
+//         {/* Product Categories */}
+//         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+//           <div className="border rounded-lg p-6 shadow-sm">
+//             <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
+//               <span className="text-2xl">☕</span> Coffee Beans
+//             </h2>
+//             <p className="text-gray-600 mb-4">
+//               Single-origin, blends, espresso, light to dark roast. Fresh
+//               roasted weekly.
+//             </p>
+//             <div className="space-y-3">
+//               <div className="flex justify-between items-center">
+//                 <span className="font-medium">Blue Bottle Coffee</span>
+//                 <span className="text-[#b07d52] font-bold">$24.99</span>
+//               </div>
+//               <div className="flex justify-between items-center">
+//                 <span className="font-medium">Intelligentsia Black Cat</span>
+//                 <span className="text-[#b07d52] font-bold">$22.99</span>
+//               </div>
+//               <div className="flex justify-between items-center">
+//                 <span className="font-medium">Stumptown Hair Bender</span>
+//                 <span className="text-[#b07d52] font-bold">$21.99</span>
+//               </div>
+//             </div>
+//           </div>
 
-          <div className="border rounded-lg p-6 shadow-sm">
-            <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
-              <span className="text-2xl">⚙️</span> Brewing Equipment
-            </h2>
-            <p className="text-gray-600 mb-4">
-              Grinders, kettles, brewers, scales & accessories from top brands.
-            </p>
-            <div className="space-y-3">
-              <div className="flex justify-between items-center">
-                <span className="font-medium">Baratza Encore Grinder</span>
-                <span className="text-[#b07d52] font-bold">$169.99</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="font-medium">Fellow Stagg Kettle</span>
-                <span className="text-[#b07d52] font-bold">$89.99</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="font-medium">Hario V60 Dripper</span>
-                <span className="text-[#b07d52] font-bold">$24.99</span>
-              </div>
-            </div>
-          </div>
-        </div>
+//           <div className="border rounded-lg p-6 shadow-sm">
+//             <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
+//               <span className="text-2xl">⚙️</span> Brewing Equipment
+//             </h2>
+//             <p className="text-gray-600 mb-4">
+//               Grinders, kettles, brewers, scales & accessories from top brands.
+//             </p>
+//             <div className="space-y-3">
+//               <div className="flex justify-between items-center">
+//                 <span className="font-medium">Baratza Encore Grinder</span>
+//                 <span className="text-[#b07d52] font-bold">$169.99</span>
+//               </div>
+//               <div className="flex justify-between items-center">
+//                 <span className="font-medium">Fellow Stagg Kettle</span>
+//                 <span className="text-[#b07d52] font-bold">$89.99</span>
+//               </div>
+//               <div className="flex justify-between items-center">
+//                 <span className="font-medium">Hario V60 Dripper</span>
+//                 <span className="text-[#b07d52] font-bold">$24.99</span>
+//               </div>
+//             </div>
+//           </div>
+//         </div>
 
-        <div className="bg-gray-50 rounded-lg p-6 mb-8">
-          <h2 className="text-xl font-semibold mb-4">Why Choose BrewTopia?</h2>
-          <ul className="space-y-3 text-gray-600">
-            <li className="flex items-start gap-2">
-              <span className="text-green-500">✓</span>
-              <span>Fresh roasted coffee beans delivered weekly</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-green-500">✓</span>
-              <span>Professional equipment with manufacturer warranties</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-green-500">✓</span>
-              <span>Worldwide shipping available</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-green-500">✓</span>
-              <span>Expert advice and brewing guides included</span>
-            </li>
-          </ul>
-        </div>
+//         <div className="bg-gray-50 rounded-lg p-6 mb-8">
+//           <h2 className="text-xl font-semibold mb-4">Why Choose BrewTopia?</h2>
+//           <ul className="space-y-3 text-gray-600">
+//             <li className="flex items-start gap-2">
+//               <span className="text-green-500">✓</span>
+//               <span>Fresh roasted coffee beans delivered weekly</span>
+//             </li>
+//             <li className="flex items-start gap-2">
+//               <span className="text-green-500">✓</span>
+//               <span>Professional equipment with manufacturer warranties</span>
+//             </li>
+//             <li className="flex items-start gap-2">
+//               <span className="text-green-500">✓</span>
+//               <span>Worldwide shipping available</span>
+//             </li>
+//             <li className="flex items-start gap-2">
+//               <span className="text-green-500">✓</span>
+//               <span>Expert advice and brewing guides included</span>
+//             </li>
+//           </ul>
+//         </div>
 
-        <p className="text-gray-600 text-center">
-          Price range: $15 - $500. All products available for shipping
-          worldwide.
-        </p>
-      </main>
-      {/* ========== END CONTENT FOR GOOGLE ========== */}
+//         <p className="text-gray-600 text-center">
+//           Price range: $15 - $500. All products available for shipping
+//           worldwide.
+//         </p>
+//       </main>
+//       {/* ========== END CONTENT FOR GOOGLE ========== */}
 
-      {/* ========== INTERACTIVE SECTION ========== */}
-      {/* This loads client-side only, Google won't index it */}
-      <section className="border-t mt-8">
-        <div className="container mx-auto px-4 py-8">
-          <div className="text-center mb-8">
-            <h2 className="text-2xl font-bold mb-4">
-              Interactive Product Catalog
-            </h2>
-            <p className="text-gray-600">
-              Use filters, search, and sorting to explore our full collection
-            </p>
-          </div>
+//       {/* ========== INTERACTIVE SECTION ========== */}
+//       {/* This loads client-side only, Google won't index it */}
+//       <section className="border-t mt-8">
+//         <div className="container mx-auto px-4 py-8">
+//           <div className="text-center mb-8">
+//             <h2 className="text-2xl font-bold mb-4">
+//               Interactive Product Catalog
+//             </h2>
+//             <p className="text-gray-600">
+//               Use filters, search, and sorting to explore our full collection
+//             </p>
+//           </div>
 
-          <ClientOnly
-            fallback={
-              <div className="text-center py-12">
-                <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#b07d52] mb-4"></div>
-                <p className="text-gray-600">Loading interactive catalog...</p>
-              </div>
-            }
-          >
-            <ProductsClient />
-          </ClientOnly>
-        </div>
-      </section>
-    </>
-  );
-};
+//           <ClientOnly
+//             fallback={
+//               <div className="text-center py-12">
+//                 <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#b07d52] mb-4"></div>
+//                 <p className="text-gray-600">Loading interactive catalog...</p>
+//               </div>
+//             }
+//           >
+//             <ProductsClient />
+//           </ClientOnly>
+//         </div>
+//       </section>
+//     </>
+//   );
+// };
 
-export default Products;
+// export default Products;
