@@ -3,14 +3,83 @@ import { ClientOnly } from "~/components/ClientOnly";
 import ProductsClient from "~/components/productsClient";
 import type { Route } from "./+types/products";
 export function meta({}: Route.MetaArgs) {
+  // return [
+  //   { title: "Curated Coffee Roasters & Brewing Gear | BrewTopia Collection" },
+  //   {
+  //     name: "description",
+  //     content:
+  //       "Blue Bottle, Intelligentsia, Stumptown, Method Coffee roasters + Baratza, Fellow, Breville, Hario, Chemex equipment. Complete coffee setup from top brands. Fresh roasted weekly.",
+  //   },
+  //   { name: "author", content: "BrewTopia" },
+
+  //   // Open Graph
+  //   {
+  //     property: "og:title",
+  //     content: "Top Coffee Brands & Equipment | BrewTopia Collection",
+  //   },
+  //   {
+  //     property: "og:description",
+  //     content:
+  //       "From Blue Bottle beans to Baratza grinders - we've curated the perfect coffee ecosystem. Shop premium roasters & professional equipment in one trusted destination.",
+  //   },
+  //   { property: "og:type", content: "website" },
+  //   {
+  //     property: "og:url",
+  //     content: "https://coffee-khaki-seven.vercel.app/products",
+  //   },
+  //   {
+  //     property: "og:image",
+  //     content: "https://coffee-khaki-seven.vercel.app/products.jpg",
+  //   },
+  //   { property: "og:site_name", content: "BrewTopia" },
+
+  //   // Twitter
+  //   { name: "twitter:card", content: "summary_large_image" },
+  //   {
+  //     name: "twitter:title",
+  //     content: "Coffee Brands & Equipment Collection | BrewTopia",
+  //   },
+  //   {
+  //     name: "twitter:description",
+  //     content:
+  //       "Blue Bottle ☕ Baratza ⚙️ Fellow ♨️ - All your favorite coffee brands in one place! Complete setups from bean to brew. 🌟",
+  //   },
+  //   {
+  //     name: "twitter:image",
+  //     content: "https://coffee-khaki-seven.vercel.app/products.jpg",
+  //   },
+  //   { name: "twitter:site", content: "@brewtpia" },
+  // ];
+
   return [
     { title: "Curated Coffee Roasters & Brewing Gear | BrewTopia Collection" },
     {
       name: "description",
-      content:
-        "Blue Bottle, Intelligentsia, Stumptown, Method Coffee roasters + Baratza, Fellow, Breville, Hario, Chemex equipment. Complete coffee setup from top brands. Fresh roasted weekly.",
+      content: "Blue Bottle, Intelligentsia, Stumptown...",
     },
     { name: "author", content: "BrewTopia" },
+
+    // Robots with all optimizations
+    {
+      name: "robots",
+      content:
+        "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1",
+    },
+    {
+      name: "googlebot",
+      content:
+        "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1",
+    },
+
+    // Additional SEO
+    {
+      name: "keywords",
+      content: "coffee, roasters, equipment, Blue Bottle, Baratza",
+    },
+    {
+      name: "canonical",
+      content: "https://coffee-khaki-seven.vercel.app/products",
+    },
 
     // Open Graph
     {
@@ -19,8 +88,7 @@ export function meta({}: Route.MetaArgs) {
     },
     {
       property: "og:description",
-      content:
-        "From Blue Bottle beans to Baratza grinders - we've curated the perfect coffee ecosystem. Shop premium roasters & professional equipment in one trusted destination.",
+      content: "From Blue Bottle beans to Baratza grinders...",
     },
     { property: "og:type", content: "website" },
     {
@@ -32,6 +100,7 @@ export function meta({}: Route.MetaArgs) {
       content: "https://coffee-khaki-seven.vercel.app/products.jpg",
     },
     { property: "og:site_name", content: "BrewTopia" },
+    { property: "og:locale", content: "en_US" },
 
     // Twitter
     { name: "twitter:card", content: "summary_large_image" },
@@ -41,14 +110,14 @@ export function meta({}: Route.MetaArgs) {
     },
     {
       name: "twitter:description",
-      content:
-        "Blue Bottle ☕ Baratza ⚙️ Fellow ♨️ - All your favorite coffee brands in one place! Complete setups from bean to brew. 🌟",
+      content: "Blue Bottle ☕ Baratza ⚙️ Fellow ♨️...",
     },
     {
       name: "twitter:image",
       content: "https://coffee-khaki-seven.vercel.app/products.jpg",
     },
     { name: "twitter:site", content: "@brewtpia" },
+    { name: "twitter:creator", content: "@brewtpia" },
   ];
 }
 
