@@ -49,6 +49,7 @@ export default function RealCoffeeCategories() {
     const originCounts: { [key: string]: number } = {};
     const processCounts: { [key: string]: number } = {};
     const flavorCounts: { [key: string]: number } = {};
+    console.log("roast:", roastCounts);
 
     coffees.forEach((coffee) => {
       // Roast levels
@@ -108,10 +109,16 @@ export default function RealCoffeeCategories() {
       .slice(0, 2);
 
     topProcesses.forEach(([process, count]) => {
+      const processColors: { [key: string]: string } = {
+        washed: "from-yellow-100 to-amber-300",
+      };
       categories.push({
         name: `${process.charAt(0).toUpperCase() + process.slice(1)} Process`,
         count,
-        color: "from-green-500 to-emerald-600",
+        color:
+          processColors[process.toLowerCase()] ||
+          "from-green-500 to-emerald-100",
+
         description: `${process} processed beans`,
       });
     });
@@ -122,21 +129,28 @@ export default function RealCoffeeCategories() {
       .slice(0, 2);
 
     topFlavors.forEach(([flavor, count]) => {
+      // Different chocolate shades based on flavor type
+      const flavorColors: { [key: string]: string } = {
+        chocolate: "from-amber-900 to-yellow-900", // Dark chocolate
+      };
+
       categories.push({
         name: `${flavor.charAt(0).toUpperCase() + flavor.slice(1)} Notes`,
         count,
-        color: "from-purple-500 to-pink-600",
+        color:
+          flavorColors[flavor.toLowerCase()] || "from-brown-600 to-amber-800",
         description: `Featuring ${flavor} flavor notes`,
       });
     });
 
-    return categories.slice(0, 6); // Limit to 6 categories
+    // return categories.slice(0, 6); // Limit to 6 categories
+    return categories; // Limit to 6 categories
   };
 
   const getRoastColor = (roast: string): string => {
     const colors: { [key: string]: string } = {
       light: "from-yellow-400 to-amber-500",
-      medium: "from-amber-500 to-orange-500",
+      medium: "from-amber-600 to-red-500",
       dark: "from-brown-600 to-gray-800",
       espresso: "from-gray-700 to-gray-900",
     };

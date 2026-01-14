@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router";
-import TestimonialsSection from "~/components/TestimonialsSection";
 import RealCoffeeCategories from "./RealCoffeeCategories";
 import NewsdataArticles from "./NewsdataArticles";
 
@@ -20,9 +19,6 @@ export function Welcome({ data, brands }: WelcomeProps) {
       },
     });
   }
-
-  // Helper function to determine category based on content
-  console.log("data all:", data);
 
   return (
     <>
@@ -273,8 +269,6 @@ export function Welcome({ data, brands }: WelcomeProps) {
               Who found their perfect brew through us
             </p>
           </div>
-
-          <TestimonialsSection />
         </div>
       </section>
 
