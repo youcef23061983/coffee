@@ -1642,7 +1642,7 @@ const NewsdataArticles = () => {
 
     // Check for any coffee keyword
     const hasCoffeeKeyword = coffeeKeywords.some((keyword) =>
-      content.includes(keyword)
+      content.includes(keyword),
     );
 
     // Also allow articles from known coffee sources
@@ -1657,7 +1657,7 @@ const NewsdataArticles = () => {
     const fromCoffeeSource = coffeeSources.some(
       (source) =>
         titleLower.includes(source) ||
-        description.toLowerCase().includes(source)
+        description.toLowerCase().includes(source),
     );
 
     return hasCoffeeKeyword || fromCoffeeSource;
@@ -1800,7 +1800,7 @@ const NewsdataArticles = () => {
           articles,
           timestamp: Date.now(),
           isAPIData,
-        })
+        }),
       );
     } catch (err) {
       console.warn("Failed to cache articles:", err);
@@ -1860,7 +1860,7 @@ const NewsdataArticles = () => {
     });
 
     console.log(
-      `API: ${apiArticles.length} total, ${coffeeArticles.length} coffee-related`
+      `API: ${apiArticles.length} total, ${coffeeArticles.length} coffee-related`,
     );
 
     // Return whatever we get, even if just 1-2 articles
@@ -1872,7 +1872,7 @@ const NewsdataArticles = () => {
       readTime: `${Math.ceil((article.description?.length || 300) / 200)} min read`,
       category: determineCategory(
         article.title || "",
-        article.description || ""
+        article.description || "",
       ),
       image: article.image_url,
     }));
@@ -1902,7 +1902,7 @@ const NewsdataArticles = () => {
       console.log(`Fetching coffee news with query: "${query}"`);
 
       const response = await fetch(
-        `https://newsdata.io/api/1/news?apikey=${apiKey}&q=${encodeURIComponent(query)}&language=en&size=5`
+        `https://newsdata.io/api/1/news?apikey=${apiKey}&q=${encodeURIComponent(query)}&language=en&size=5`,
       );
 
       if (!response.ok) {

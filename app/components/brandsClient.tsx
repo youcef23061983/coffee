@@ -58,6 +58,8 @@ export default function BrandsClient({
   >([]);
   const [loading, setLoading] = useState(false);
   const [searchParams] = useSearchParams();
+  console.log("our coffee:", coffeeProducts);
+  console.log("our equipment:", equipmentProducts);
 
   // Read tab parameter from URL on component mount
   useEffect(() => {
@@ -85,14 +87,14 @@ export default function BrandsClient({
       if (activeTab === "coffee") {
         // Use the coffee products from props, filtered for in_stock
         const filteredCoffeeProducts = coffeeProducts.filter(
-          (product) => product.in_stock !== false
+          (product) => product.in_stock !== false,
         );
         console.log("Filtered coffee products:", filteredCoffeeProducts);
         setProducts(filteredCoffeeProducts);
       } else {
         // Use the equipment products from props, filtered for in_stock
         const filteredEquipmentProducts = equipmentProducts.filter(
-          (product) => product.in_stock !== false
+          (product) => product.in_stock !== false,
         );
         console.log("Filtered equipment products:", filteredEquipmentProducts);
         setProducts(filteredEquipmentProducts);
@@ -107,23 +109,23 @@ export default function BrandsClient({
 
   // Calculate product counts from the props
   const coffeeCount = coffeeProducts.filter(
-    (product) => product.in_stock !== false
+    (product) => product.in_stock !== false,
   ).length;
 
   const equipmentCount = equipmentProducts.filter(
-    (product) => product.in_stock !== false
+    (product) => product.in_stock !== false,
   ).length;
 
   // Type guard for CoffeeProduct
   function isCoffeeProduct(
-    product: CoffeeProduct | EquipmentProduct
+    product: CoffeeProduct | EquipmentProduct,
   ): product is CoffeeProduct {
     return (product as CoffeeProduct).roast_level !== undefined;
   }
 
   // Type guard for EquipmentProduct
   function isEquipmentProduct(
-    product: CoffeeProduct | EquipmentProduct
+    product: CoffeeProduct | EquipmentProduct,
   ): product is EquipmentProduct {
     return (product as EquipmentProduct).category !== undefined;
   }

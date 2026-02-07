@@ -86,7 +86,7 @@ export async function loader() {
     *,
     coffee_products(*),
     equipment_products(*)
-  `
+  `,
     )
     .order("name");
 
