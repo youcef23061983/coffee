@@ -16,7 +16,7 @@ export default function Contact() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
     setUser((prevUser) => ({
@@ -62,12 +62,12 @@ export default function Contact() {
         form.current,
         {
           publicKey: import.meta.env.VITE_CONTACT_PUBLIC_KEY,
-        }
+        },
       );
 
       // Success
       setFormStatus(
-        "Thank you! Your message has been sent successfully. We'll get back to you within 24 hours."
+        "Thank you! Your message has been sent successfully. We'll get back to you within 24 hours.",
       );
       setUser({ name: "", email: "", comment: "" });
 
