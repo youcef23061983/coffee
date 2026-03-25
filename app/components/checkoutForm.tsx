@@ -255,7 +255,8 @@ const CheckoutForm = () => {
               // Send email WITH invoice link
               try {
                 debugLog("Sending confirmation email...");
-                await fetch("/api/send-grid-email", {
+                // await fetch("/api/send-grid-email", {
+                await fetch("/api/send-brevo-email", {
                   method: "POST",
                   headers: {
                     "Content-Type": "application/json",
