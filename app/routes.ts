@@ -39,7 +39,7 @@ export default [
 
     // ✅ ADD ALL YOUR API ROUTES
     route("api/create-payment-intent", "routes/api.create-payment-intent.ts"),
-    route("api/send-grid-email", "routes/api.send-grid-email.ts"),
+    route("api/send-brevo-email", "routes/api.send-brevo-email.ts"),
     route("api/send-order-sms", "routes/api.send-order-sms.ts"),
     route("api/generate-invoice", "routes/api.generate-invoice.ts"),
     route("api/send-whatsapp", "routes/api.send-whatsapp.ts"),
