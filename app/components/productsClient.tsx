@@ -63,7 +63,7 @@ interface Filters {
 
 // Type guards
 const isCoffeeProduct = (
-  product: Product
+  product: Product,
 ): product is CoffeeProduct & {
   product_type: "coffee";
   brand_name?: string;
@@ -72,7 +72,7 @@ const isCoffeeProduct = (
 };
 
 const isEquipmentProduct = (
-  product: Product
+  product: Product,
 ): product is EquipmentProduct & {
   product_type: "equipment";
   brand_name?: string;
@@ -112,7 +112,6 @@ const ProductsClient = () => {
         const { data: coffeeData, error: coffeeError } = await supabase
           .from("coffee_products")
           .select(`*, brands (name)`);
-
         if (coffeeError) {
           console.error("❌ Coffee fetch error:", coffeeError);
           throw coffeeError;
@@ -188,7 +187,7 @@ const ProductsClient = () => {
               product.origin_country.toLowerCase().includes(query) ||
               product.process_method.toLowerCase().includes(query) ||
               product.flavor_profile?.some((flavor) =>
-                flavor.toLowerCase().includes(query)
+                flavor.toLowerCase().includes(query),
               ) ||
               false
             );
@@ -200,7 +199,7 @@ const ProductsClient = () => {
               product.category.toLowerCase().includes(query) ||
               product.skill_level.toLowerCase().includes(query) ||
               product.recommended_for?.some((useCase) =>
-                useCase.toLowerCase().includes(query)
+                useCase.toLowerCase().includes(query),
               ) ||
               false
             );
@@ -214,7 +213,7 @@ const ProductsClient = () => {
       // Product type filter
       if (filters.productType) {
         filtered = filtered.filter(
-          (product) => product.product_type === filters.productType
+          (product) => product.product_type === filters.productType,
         );
         console.log("After product type:", filtered.length);
       }
@@ -241,7 +240,7 @@ const ProductsClient = () => {
           filtered = filtered.filter(
             (product) =>
               isCoffeeProduct(product) &&
-              product.roast_level === filters.roastLevel
+              product.roast_level === filters.roastLevel,
           );
           console.log("After roast level:", filtered.length);
         }
@@ -249,7 +248,7 @@ const ProductsClient = () => {
           filtered = filtered.filter(
             (product) =>
               isCoffeeProduct(product) &&
-              product.origin_country === filters.originCountry
+              product.origin_country === filters.originCountry,
           );
           console.log("After origin:", filtered.length);
         }
@@ -261,7 +260,7 @@ const ProductsClient = () => {
           filtered = filtered.filter(
             (product) =>
               isEquipmentProduct(product) &&
-              product.category === filters.equipmentCategory
+              product.category === filters.equipmentCategory,
           );
           console.log("After category:", filtered.length);
         }
@@ -269,7 +268,7 @@ const ProductsClient = () => {
           filtered = filtered.filter(
             (product) =>
               isEquipmentProduct(product) &&
-              product.skill_level === filters.skillLevel
+              product.skill_level === filters.skillLevel,
           );
           console.log("After skill level:", filtered.length);
         }
@@ -625,7 +624,7 @@ const ProductsClient = () => {
                       onChange={(e) =>
                         handleFilterChange(
                           "originCountry",
-                          e.target.value || null
+                          e.target.value || null,
                         )
                       }
                       className="w-full p-4 bg-white/80 backdrop-blur-sm border-2 border-amber-200 rounded-xl focus:ring-2 focus:ring-amber-400 focus:border-amber-400 shadow-lg hover:shadow-xl transition-all duration-300"
@@ -667,7 +666,7 @@ const ProductsClient = () => {
                       onChange={(e) =>
                         handleFilterChange(
                           "equipmentCategory",
-                          e.target.value || null
+                          e.target.value || null,
                         )
                       }
                       className="w-full p-4 bg-white/80 backdrop-blur-sm border-2 border-amber-200 rounded-xl focus:ring-2 focus:ring-amber-400 focus:border-amber-400 shadow-lg hover:shadow-xl transition-all duration-300"
@@ -880,7 +879,7 @@ const ProductsClient = () => {
                           onError={(e) => {
                             console.log(
                               "Image failed to load for:",
-                              product.name
+                              product.name,
                             );
                             (e.target as HTMLImageElement).src =
                               "/placeholder-coffee.jpg";

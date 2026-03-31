@@ -53,24 +53,25 @@ export const action: ActionFunction = async ({ request }) => {
     if (authError) throw authError;
 
     // 2. Send welcome email via Supabase function (only if user was created)
+    // if (authData.user) {
+    //   const { error: emailError } = await supabase.functions.invoke(
+    //     "send-welcome-email",
+    //     {
+    //       body: {
+    //         userEmail: authData.user.email,
+    //         userName: name,
+    //       },
+    //     }
+    //   );
+
+    //   if (emailError) {
+    //     console.error("Welcome email failed:", emailError);
+    //     // Continue anyway - user is created, just log the error
+    //   }
+    // }
     if (authData.user) {
-      const { error: emailError } = await supabase.functions.invoke(
-        "send-welcome-email",
-        {
-          body: {
-            userEmail: authData.user.email,
-            userName: name,
-          },
-        }
-      );
-
-      if (emailError) {
-        console.error("Welcome email failed:", emailError);
-        // Continue anyway - user is created, just log the error
-      }
+      return { success: true };
     }
-
-    return redirect("/dashboard");
   } catch (error: unknown) {
     const errorMessage =
       error instanceof Error ? error.message : "An unknown error occurred";
@@ -185,6 +186,11 @@ export default function Signup() {
 
           {actionData?.error && (
             <div className="error-message">❌ {actionData.error}</div>
+          )}
+          {actionData?.success && (
+            <div className="success-message">
+              ✅ Check your email and confirm your account!
+            </div>
           )}
 
           <div className="signup-footer">
@@ -328,6 +334,15 @@ export default function Signup() {
           cursor: not-allowed;
           transform: none;
         }
+          .success-message {
+  background: #E8F5E8; /* light green background */
+  color: #4CAF50;      /* green text */
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-top: 20px;
+  font-weight: 500;
+  border-left: 4px solid #4CAF50;
+}
 
         .error-message {
           background: #FFEBEE;
